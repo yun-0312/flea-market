@@ -3,22 +3,34 @@
 
 ## 環境構築
 Dockerビルド
-  1. git clone git@github.com:yun-0312/Inquiry_Form.git
-  2. docker-compose up -d --build
+  1. `git clone github.com:yun-0312/flea-market.git`
+  2. `docker-compose up -d --build`
 
 Laravel環境構築
-  1. docker-compose exec php bash
-  2. composer install
+  1. `docker-compose exec php bash`
+  2. `composer install`
   3. 「.env.example」ファイルを 「.env」ファイルに命名を変更。または、新しく.envファイルを作成、環境変数を変更
+  4. 環境変数を以下に修正
+``` text
      DB_CONNECTION=mysql<br />
      DB_HOST=mysql<br />
      DB_PORT=3306<br />
      DB_DATABASE=laravel_db<br />
      DB_USERNAME=laravel_user<br />
      DB_PASSWORD=laravel_pass<br />
-  4. php artisan key:generate
-  5. php artisan migrate
-  6. php artisan db:seed
+```
+  5.アプリケーションキーの作成
+``` bash
+php artisan key:generate
+```
+  6.マイグレーションの実行
+``` bash
+php artisan migrate
+```
+  7.シーディングの実行
+``` bash
+php artisan db:seed
+```
 
 ## 使用技術
   <img src="https://img.shields.io/badge/-PHP-777BB4.svg?logo=php&style=plastic"> <img src="https://img.shields.io/badge/-Laravel-E74430.svg?logo=laravel&style=plastic"> <img src="https://img.shields.io/badge/-Composer-885630.svg?logo=composer&style=plastic"> <img src="https://img.shields.io/badge/-Mysql-4479A1.svg?logo=mysql&style=plastic"> <img src="https://img.shields.io/badge/-Nginx-269539.svg?logo=nginx&style=plastic"> <img src="https://img.shields.io/badge/-Docker-1488C6.svg?logo=docker&style=plastic"><br />
