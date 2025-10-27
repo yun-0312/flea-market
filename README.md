@@ -3,7 +3,7 @@
 
 ## 環境構築
 Dockerビルド
-  1. `git clone github.com:yun-0312/flea-market.git`
+  1. `git clone git@github.com:yun-0312/flea-market.git`
   2. `docker-compose up -d --build`
 
 Laravel環境構築
