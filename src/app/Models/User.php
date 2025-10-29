@@ -21,9 +21,6 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
-        'post_code',
-        'address',
-        'building',
     ];
 
     /**
@@ -49,8 +46,8 @@ class User extends Authenticatable
         return $this->hasMany(Item::class);
     }
 
-    public function addresses() {
-        return $this->hasMany(Address::class);
+    public function profile() {
+        return $this->hasOne(Profile::class);
     }
 
     public function comments() {
@@ -63,10 +60,5 @@ class User extends Authenticatable
 
     public function likedItems() {
         return $this->belongsToMany(Item::class, 'likes')->withTimestamps();
-    }
-
-    public function images()
-    {
-        return $this->morphMany(Image::class, 'imageable');
     }
 }

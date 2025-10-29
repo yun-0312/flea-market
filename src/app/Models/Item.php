@@ -10,32 +10,21 @@ class Item extends Model
     use HasFactory;
 
     protected $fillable = [
+        'user_id'
         'name',
         'brand',
         'description',
         'price',
-        'status',
-        'category_id',
-        'condition_id',
-        'user_id',
-        'address_id',
+        'image_url',
+        'condition',
     ];
 
-    public function category() {
-        return $this->belongsTo(Category::class);
+    public function categories() {
+        return $this->belongsToMany(Category::class, 'product_category');
     }
 
-    public function condition() {
-        return $this->belongsTo(Condition::class);
-    }
-
-    public function user()
-    {
+    public function user() {
         return $this->belongsTo(User::class);
-    }
-
-    public function address() {
-        return $this->belongsTo(Address::class);
     }
 
     public function comments() {
@@ -48,9 +37,5 @@ class Item extends Model
 
     public function likedUsers() {
         return $this->belongsToMany(User::class, 'likes')->withTimestamps();
-    }
-
-    public function images() {
-        return $this->morphMany(Image::class, 'imageable');
     }
 }

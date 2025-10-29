@@ -15,15 +15,13 @@ class CreateItemsTable extends Migration
     {
         Schema::create('items', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->string('name');
             $table->string('brand');
             $table->text('description');
             $table->integer('price');
-            $table->tinyInteger('status');
-            $table->foreignId('category_id')->constrained('categories')->onDelete('cascade');
-            $table->foreignId('condition_id')->constrained('conditions')->onDelete('cascade');
-            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
-            $table->foreignId('address_id')->constrained('addresses')->onDelete('cascade');
+            $table->string('image_url');
+            $table->tinyInteger('condition')->comment('状態:1=良好、2=目立った傷や汚れなし、3=やや傷や汚れあり、4=状態が悪い');
             $table->timestamps();
         });
     }
