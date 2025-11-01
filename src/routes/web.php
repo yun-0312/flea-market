@@ -1,6 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\ItemController;
 
 /*
 |--------------------------------------------------------------------------
@@ -12,7 +15,13 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+// ログイン
+Route::post('login', [LoginController::class, 'store'])->name('login');
 
-Route::get('/', function () {
-    return view('welcome');
+//商品一覧（ログイン前）
+Route::get('/', [ItemController::class, 'index'])->name('item.index');
+
+// ログイン後
+Route::middleware('auth')->group(function() {
+    Route::get('/mypage/profile', [UserController::class, 'update']);
 });

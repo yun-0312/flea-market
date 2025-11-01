@@ -16,7 +16,9 @@ class CreatePurchasesTable extends Migration
         Schema::create('purchases', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->cascade()->onDelete('cascade');
-            $table->string('method_name');
+            $table->foreignId('item_id')->cascade()->onDelete('cascade');
+            $table->foreignId('shipping_address_id')->cascade()->onDelete('cascade');
+            $table->tinyInteger('payment_method')->comment('支払方法:1=コンビニ支払い、2=カード支払い');
             $table->timestamps();
         });
     }
