@@ -36,6 +36,10 @@
     transform: translateY(-4px);
 }
 
+.items__card-link {
+    text-decoration: none;
+}
+
 .items__image {
     width: 290px;
     height: 290px;
@@ -50,7 +54,10 @@
     margin-top: 5px;
     white-space: nowrap;
     overflow: hidden;
+}
 
+.sold__label {
+    color: red;
 }
 
 @media (max-width: 1400px) {

@@ -1,0 +1,298 @@
+.item {
+    display: flex;
+    justify-content: center;
+    padding: 40px 0;
+}
+
+.item__container {
+    display: flex;
+    max-width: 1100px;
+    gap: 60px;
+}
+
+.item__image-wrap {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: top;
+    padding-top: 35px;
+}
+
+.item__image {
+    width: 600px;
+    height: 600px;
+    object-fit: cover;
+}
+
+.item__detail {
+    flex: 1;
+}
+
+.item__name {
+    font-size: 45px;
+    font-weight: 700;
+    margin: 0;
+}
+
+.item__brand {
+    color: #000000;
+    font-size: 20px;
+    margin: 0;
+}
+
+.item__price {
+    font-size: 30px;
+    margin: 10px 0;
+}
+
+.price__item {
+    font-size: 16px;
+}
+
+.item__icons {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+    margin-bottom: 20px;
+    margin-left: 30px;
+}
+
+.item__icon {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.favorite-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+.item__icon-img {
+    width: 44px;
+    height: 44px;
+}
+
+.item__icon-count {
+    font-size: 18px;
+    font-weight: 700;
+    margin: 0;
+}
+
+.purchase-form {
+    width: 570px;
+}
+
+.purchase-form__btn {
+    display: block;
+    width: 100%;
+    height: 56px;
+    color: #ffffff;
+    font-size: 30px;
+    font-weight: 700;
+    background-color: #FF5555;
+    border: none;
+    cursor: pointer;
+    margin-bottom: 20px;
+}
+
+.item__section {
+    margin-top: 24px;
+}
+
+.item__section-title {
+    font-weight: 700;
+    font-size: 36px;
+    margin-bottom: 8px;
+}
+
+.item__information {
+    display: flex;
+    align-items: flex-start;
+    gap: 30px;
+}
+
+.item__information-title {
+    font-size: 24px;
+    font-family: 700;
+    margin: 10px 0;
+}
+
+.item__information-categories {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    width: 400px;
+}
+
+.item__information-category {
+    background-color: #f2f2f2;
+    padding: 4px 12px;
+    font-size: 13px;
+    border-radius: 15px;
+    white-space: nowrap;
+    width: 101.99px;
+    height: 30px;
+    text-align: center;
+}
+
+.comment__section {
+    margin-top: 30px;
+}
+
+.comment__section-title {
+    color: #5F5F5F;
+    font-size: 36px;
+    font-weight: 700;
+    margin: 0;
+}
+
+.comment {
+    padding: 12px;
+}
+
+.comment__user {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.comment__icon {
+    width: 70px;
+    height: 70px;
+    background: #ccc;
+    border-radius: 50%;
+}
+
+.comment__name {
+    font-weight: 700;
+    font-size: 30px;
+}
+
+.comment__text {
+    display: block;
+    width: 100%;
+    word-wrap: break-word;
+    padding: 10px 20px;
+    background-color: #E5E5E5;
+    min-height: 70px;
+    height: auto;
+}
+
+.comment-form {
+    margin-top: 20px;
+}
+
+.comment-form__label {
+    font-weight: bold;
+    display: block;
+    margin-bottom: 8px;
+    font-size: 28px;
+    font-weight: 700;
+}
+
+.comment-form__textarea {
+    width: 100%;
+    height: 246px;
+    border: 1px solid #ccc;
+    padding: 8px;
+}
+
+.comment-form__btn {
+    display: block;
+    width: 100%;
+    margin-top: 30px;
+    background-color: #FF5555;
+    color: #ffffff;
+    font-size: 25px;
+    font-weight: 700;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+}
+
+.comment-form__error-message {
+    color: red;
+}
+
+@media (max-width: 1199px) {
+    .item__container {
+        flex-direction: column;
+        align-items: center;
+        gap: 40px;
+        max-width: 90%;
+    }
+
+    .item__image {
+        width: 100%;
+        height: auto;
+    }
+
+    .item__text-detail {
+        width: 100%;
+    }
+
+    .purchase-form {
+        width: 100%;
+    }
+
+    .item__section-title {
+        font-size: 28px;
+    }
+
+    .comment__section-title {
+        font-size: 28px;
+    }
+
+    .item__name {
+        font-size: 32px;
+    }
+}
+
+/* === スマホ（〜767px） === */
+@media (max-width: 767px) {
+    .item {
+        padding: 20px 10px;
+    }
+
+    .item__container {
+        flex-direction: column;
+        gap: 24px;
+        width: 100%;
+    }
+
+    .item__image {
+        width: 100%;
+        height: auto;
+    }
+
+    .item__name {
+        font-size: 24px;
+    }
+
+    .item__brand {
+        font-size: 16px;
+    }
+
+    .item__price {
+        font-size: 22px;
+    }
+
+    .item__section-title {
+        font-size: 24px;
+    }
+
+    .comment__section-title {
+        font-size: 24px;
+    }
+
+    .comment__name {
+        font-size: 20px;
+    }
+
+    .comment-form__btn {
+        font-size: 18px;
+        padding: 8px 12px;
+    }
+}

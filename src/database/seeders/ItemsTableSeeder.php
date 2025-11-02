@@ -34,7 +34,7 @@ class ItemsTableSeeder extends Seeder
                 'condition' => 2,
             ],
             [
-                'user_id' => 1,
+                'user_id' => 2,
                 'name' => '玉ねぎ3束',
                 'price' => 300,
                 'brand' => 'なし',
@@ -43,7 +43,7 @@ class ItemsTableSeeder extends Seeder
                 'condition' => 3,
             ],
             [
-                'user_id' => 1,
+                'user_id' => 2,
                 'name' => '革靴',
                 'price' => 4000,
                 'brand' => '',
@@ -52,7 +52,7 @@ class ItemsTableSeeder extends Seeder
                 'condition' => 4,
             ],
             [
-                'user_id' => 1,
+                'user_id' => 3,
                 'name' => 'ノートPC',
                 'price' => 45000,
                 'brand' => '',
@@ -61,7 +61,7 @@ class ItemsTableSeeder extends Seeder
                 'condition' => 1,
             ],
             [
-                'user_id' => 1,
+                'user_id' => 3,
                 'name' => 'マイク',
                 'price' => 8000,
                 'brand' => 'なし',
@@ -79,7 +79,7 @@ class ItemsTableSeeder extends Seeder
                 'condition' => 3,
             ],
             [
-                'user_id' => 1,
+                'user_id' => 2,
                 'name' => 'タンブラー',
                 'price' => 500,
                 'brand' => 'なし',
@@ -88,7 +88,7 @@ class ItemsTableSeeder extends Seeder
                 'condition' => 4,
             ],
             [
-                'user_id' => 1,
+                'user_id' => 3,
                 'name' => 'コーヒーミル',
                 'price' => 4000,
                 'brand' => 'Starbacks',
@@ -97,7 +97,7 @@ class ItemsTableSeeder extends Seeder
                 'condition' => 1,
             ],
             [
-                'user_id' => 1,
+                'user_id' => 2,
                 'name' => 'メイクセット',
                 'price' => 2500,
                 'brand' => '',

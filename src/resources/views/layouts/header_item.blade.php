@@ -5,7 +5,7 @@
         </a>
     </div>
     <form class="header-search__form" action="" method="get">
-        <input type="text" class="header-search__input" name="keyword" placeholder="なにをお探しですか？" value="{{ old('search') }}">
+        <input type="text" class="header-search__input" name="keyword" placeholder="なにをお探しですか？" value="{{ old('keyword', $keyword ?? '') }}">
     </form>
     @if (Auth::check())
     <ul class="header-nav">
