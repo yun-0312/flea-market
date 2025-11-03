@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('css')
-<link rel="stylesheet" href="{{ asset('css/edit_profile.css') }}">
+<link rel="stylesheet" href="{{ asset('css/shipping_address.css') }}">
 @endsection
 
 @section('header')
@@ -10,8 +10,8 @@
 
 @section('content')
 <div class="content-wrapper">
-    <h2 class="edit-profile-form__heading">プロフィール設定</h2>
-    <form class="form" action="{{ route('profile.update') }}" method="post">
+    <h2 class="shipping-address-form__heading">住所の変更</h2>
+    <form class="form" action="{{ route('.update') }}" method="post">
         @csrf
         <input type="file" name="image_url">
         <button>画像を選択する</button>

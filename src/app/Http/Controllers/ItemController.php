@@ -4,10 +4,6 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Item;
-use App\Models\User;
-use App\Models\Category;
-use App\Models\Purchase;
-use App\Models\Favorite;
 
 class ItemController extends Controller
 {

@@ -54,7 +54,7 @@
                     <p class="item__icon-count">{{ $item->comments->count() }}</p>
                 </div>
             </div>
-            <form action="" class="purchase-form">
+            <form action="{{ route('purchase.show', $item) }}" class="purchase-form">
                 @csrf
                 <input type="submit" class="purchase-form__btn" value="購入手続きへ">
             </form>
@@ -99,7 +99,7 @@
                 @empty
                 <p>まだコメントはありません</p>
                 @endforelse
-                <form action="{{ route('comments.store', $item) }}" method="post" class="comment-form">
+                <form action="{{ route('comment.store', $item) }}" method="post" class="comment-form">
                     @csrf
                     <label for="comment" class="comment-form__label">商品へのコメント</label>
                     <textarea name="comment" id="comment" class="comment-form__textarea">{{ old('comment') }}</textarea>
