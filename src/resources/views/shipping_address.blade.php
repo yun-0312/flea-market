@@ -11,7 +11,7 @@
 @section('content')
 <div class="content-wrapper">
     <h2 class="edit-address-form__heading">住所の変更</h2>
-    <form class="form" action="{{ route('purchase.update', ['item' => $item->id]) }}" method="post">
+    <form class="form" action="{{ route('purchase.save', ['item' => $item->id]) }}" method="post">
         @csrf
         <div class="edit-address-form__group">
             <label class="edit-address-form__label" for="post_code">郵便番号</label>

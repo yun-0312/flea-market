@@ -32,8 +32,9 @@
                 <h4 class="purchase__information-shipping-address">配送先</h4>
                 <a href="{{ route('purchase.edit', ['item' => $item->id]) }}" class="purchase__information-change-link">変更する</a>
             </div>
-            <p class="purchase__information-post-code">{{ $user->post_code }}</p>
-            <p class="purchase__information-address">{{ $user->address }} {{ $user->building }}</p>
+            <p class="purchase__information-post-code">〒{{ $address->post_code }}</p>
+            <p class="purchase__information-address">{{ $address->address }} {{ $user->building }}</p>
+            <p class="purchase__information-address">{{ $address->building }} {{ $user->building }}</p>
         </div>
     </div>
     <div class="purchase__summary">
