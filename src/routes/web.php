@@ -47,6 +47,9 @@ Route::middleware('auth')->group(function() {
     //商品購入処理
     Route::post('purchase/{item}', [PurchaseController::class, 'store'])->name('purchase.store');
 
-    //配送先住所変更
+    //配送先住所変更画面
     Route::get('purchase/address/{item}', [PurchaseController::class, 'editShippingAddress'])->name('purchase.edit');
+    //配送先住所変更
+    Route::post('purchase/address/{item}', [PurchaseController::class, 'updateShippingAddress'])
+    ->name('purchase.update');
 });
