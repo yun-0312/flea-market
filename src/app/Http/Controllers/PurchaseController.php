@@ -56,18 +56,20 @@ class PurchaseController extends Controller
         $user = auth()->user();
         $profile = $user->profile;
         $shippingData = session('shipping_address');
-        dd($shippingData);
         $shippingAddress = ShippingAddress::create([
             'user_id' => $user->id,
             'post_code' => $shippingData['post_code'] ?? $profile->post_code,
             'address' => $shippingData['address'] ?? $profile->address,
             'building' => $shippingData['building'] ?? $profile->building,
         ]);
+        // shipping_address_id をリクエストにマージしてバリデーション
+        $request->merge(['shipping_address_id' => $shippingAddress->id]);
+        $validated = $request->validate($request->rules());
         Purchase::create([
             'user_id' => $user->id,
             'item_id' => $item->id,
             'shipping_address_id' => $shippingAddress->id,
-            'payment_method' => $request->payment_method,
+            'payment_method' => $validated['payment_method'],
         ]);
         //購入完了後セッション削除
         session()->forget('shipping_address');
