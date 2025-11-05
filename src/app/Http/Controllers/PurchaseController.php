@@ -18,6 +18,7 @@ class PurchaseController extends Controller
         }
         $user = auth()->user();
         $sessionAddress = session('shipping_address');
+        // セッションに一時住所があればそちらを優先
         if ($sessionAddress) {
             $address = (object) [
                 'post_code' => $sessionAddress['post_code'],
@@ -25,6 +26,7 @@ class PurchaseController extends Controller
                 'building' => $sessionAddress['building'] ?? null,
             ];
         } else {
+            // なければプロフィール住所を使用
             $address = $user->profile;
         }
         return view('purchase', compact('item', 'user', 'address'));
@@ -47,31 +49,26 @@ class PurchaseController extends Controller
     }
 
     public function store (PurchaseRequest $request, Item $item){
-        $user = auth()->user();
-        if ($shippingData) {
-            $shippingAddress = ShippingAddress::create([
-                'user_id' => $user->id,
-                'post_code' => $shippingData['post_code'],
-                'address' => $shippingData['address'],
-                'building' => $shippingData['building'],
-            ]);
-            $shippingAddressId = $shippingAddress->id;
-        } else {
-            $profile = $user->profile;
-            $shippingAddress = ShippingAddress::create([
-                'user_id' => $user->id,
-                'post_code' => $profile->post_code,
-                'address' => $profile->address,
-                'building' => $profile->building,
-            ]);
-            $shippingAddressId = $shippingAddress->id;
+        if ($item->is_sold) {
+            return redirect()->route('items.index')
+                ->with('error', 'この商品は既に売約済みです。');
         }
+        $user = auth()->user();
+        $profile = $user->profile;
+        $shippingData = session('shipping_address');
+        $shippingAddress = ShippingAddress::create([
+            'user_id' => $user->id,
+            'post_code' => $shippingData['post_code'] ?? $profile->post_code,
+            'address' => $shippingData['address'] ?? $profile->address,
+            'building' => $shippingData['building'] ?? $profile->building,
+        ]);
         Purchase::create([
             'user_id' => $user->id,
             'item_id' => $item->id,
-            'shipping_address_id' => $shippingAddressId,
+            'shipping_address_id' => $shippingAddress->id,
             'payment_method' => $request->payment_method,
         ]);
+        //購入完了後セッション削除
         session()->forget('shipping_address');
         return redirect('/')->with('success', '購入が完了しました');
     }

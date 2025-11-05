@@ -20,43 +20,52 @@
                 <p class="purchase__information-item-price"><span class="price__item">￥</span>{{ number_format($item['price']) }}</p>
             </div>
         </div>
-        <div class="purchase__information-item">
-            <h4 class="purchase__information-item-payment-method">支払い方法</h4>
-            <select name="payment_method" id="payment_method" class="purchase__information-payment-method">
-                <option value="1">コンビニ払い</option>
-                <option value="2">カード支払い</option>
-            </select>
-        </div>
-        <div class="purchase__information-item">
-            <div class="purchase__information-header">
-                <h4 class="purchase__information-shipping-address">配送先</h4>
-                <a href="{{ route('purchase.edit', ['item' => $item->id]) }}" class="purchase__information-change-link">変更する</a>
-            </div>
-            <p class="purchase__information-post-code">〒{{ $address->post_code }}</p>
-            <p class="purchase__information-address">{{ $address->address }} {{ $user->building }}</p>
-            <p class="purchase__information-address">{{ $address->building }} {{ $user->building }}</p>
-        </div>
-    </div>
-    <div class="purchase__summary">
-        <table class="purchase__table">
-            <tr>
-                <th class="purchase__table-header">商品代金</th>
-                <td class="purchase__table-data"><span class="price__item">￥</span>{{ number_format($item['price']) }}</td>
-            </tr>
-            <tr>
-                <th class="purchase__table-header">支払い方法</th>
-                <td class="purchase__table-data">コンビニ払い</td>
-            </tr>
-        </table>
         <form action="{{ route('purchase.store', $item) }}" class="purchase-form" method="post">
             @csrf
+            <div class="purchase__information-item">
+                <h4 class="purchase__information-item-payment-method">支払い方法</h4>
+                <select name="payment_method" id="payment_method" class="purchase__information-payment-method">
+                    <option value="1" {{ old('payment_method') == 1 ? 'selected' : '' }}>コンビニ払い</option>
+                    <option value="2" {{ old('payment_method') == 2 ? 'selected' : '' }}>カード支払い</option>
+                </select>
+            </div>
+            <div class="purchase__information-item">
+                <div class="purchase__information-header">
+                    <h4 class="purchase__information-shipping-address">配送先</h4>
+                    <a href="{{ route('purchase.edit', ['item' => $item->id]) }}" class="purchase__information-change-link">変更する</a>
+                </div>
+                <p class="purchase__information-post-code">〒{{ $address->post_code }}</p>
+                <p class="purchase__information-address">{{ $address->address }} {{ $user->building }}</p>
+                <p class="purchase__information-address">{{ $address->building }} {{ $user->building }}</p>
+            </div>
+    </div>
+        <div class="purchase__summary">
+            <table class="purchase__table">
+                <tr>
+                    <th class="purchase__table-header">商品代金</th>
+                    <td class="purchase__table-data"><span class="price__item">￥</span>{{ number_format($item['price']) }}</td>
+                </tr>
+                <tr>
+                    <th class="purchase__table-header">支払い方法</th>
+                    <td class="purchase__table-data" id="payment_display">
+                        @if(old('payment_method') == 2)
+                            カード支払い
+                        @else
+                            コンビニ払い
+                        @endif
+                    </td>
+                </tr>
+            </table>
             <input type="submit" class="purchase-form__btn" value="購入する">
         </form>
     </div>
 </div>
 <script>
-    document.getElementById('payment_method').addEventListener('change', function() {
-        document.getElementById('selected-method').textContent = this.options[this.selectedIndex].text;
+    const paymentSelect = document.getElementById('payment_method');
+    const paymentDisplay = document.getElementById('payment_display');
+    paymentSelect.addEventListener('change', function() {
+        const selectedText = paymentSelect.options[paymentSelect.selectedIndex].text;
+        paymentDisplay.textContent = selectedText;
     });
 </script>
 @endsection
