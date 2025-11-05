@@ -56,6 +56,7 @@ class PurchaseController extends Controller
         $user = auth()->user();
         $profile = $user->profile;
         $shippingData = session('shipping_address');
+        dd($shippingData);
         $shippingAddress = ShippingAddress::create([
             'user_id' => $user->id,
             'post_code' => $shippingData['post_code'] ?? $profile->post_code,
