@@ -11,10 +11,22 @@
 @section('content')
 <div class="content-wrapper">
     <h2 class="edit-profile-form__heading">プロフィール設定</h2>
-    <form class="form" action="{{ route('profile.update') }}" method="post">
+    <form class="form" action="{{ route('profile.update') }}" method="post" enctype="multipart/form-data">
         @csrf
-        <input type="file" name="image_url">
-        <button>画像を選択する</button>
+        <div class="edit-profile-form__image-section">
+            <div class="edit-profile-form__image-circle">
+                {{-- プロフィール画像がある場合は表示 --}}
+                @if(auth()->user()->image_url)
+                <img src="{{ asset('storage/images/' . auth()->user()->image_url) }}" alt="プロフィール画像" class="edit-profile-form__image-preview">
+                @else
+                <div class="edit-profile-form__image-placeholder"></div>
+                @endif
+                <label class="edit-profile-form__image-label">
+                    画像を選択する
+                    <input type="file" name="image_url" class="edit-profile-form__image-input" hidden>
+                </label>
+            </div>
+        </div>
         <div class="edit-profile-form__group">
             <label class="edit-profile-form__label" for="name">ユーザー名</label>
             <input type="text" id="name" class="edit-profile-form__input" name="name" value="{{ old('name') }}">
