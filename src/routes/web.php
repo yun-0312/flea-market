@@ -22,7 +22,7 @@ use App\Http\Controllers\PurchaseController;
 Route::post('login', [LoginController::class, 'store'])->name('login');
 
 //商品一覧（ログイン前）
-Route::get('/', [ItemController::class, 'index'])->name('item.index');
+Route::get('/', [ItemController::class, 'index'])->name('items.index');
 
 //商品詳細
 Route::get('/item/{item}',[ItemController::class, 'show'])->name('item.show');

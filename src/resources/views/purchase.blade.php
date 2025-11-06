@@ -50,7 +50,6 @@
                     {{ $message }}
                 </p>
                 @enderror
-                <input type="hidden" name="shipping_address_id" value="">
             </div>
         </div>
         <div class="purchase__summary">

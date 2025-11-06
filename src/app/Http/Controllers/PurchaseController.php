@@ -18,6 +18,7 @@ class PurchaseController extends Controller
         }
         $user = auth()->user();
         $sessionAddress = session('shipping_address');
+        $sessionPayment = session('payment_method');
         // セッションに一時住所があればそちらを優先
         if ($sessionAddress) {
             $address = (object) [
@@ -29,7 +30,7 @@ class PurchaseController extends Controller
             // なければプロフィール住所を使用
             $address = $user->profile;
         }
-        return view('purchase', compact('item', 'user', 'address'));
+        return view('purchase', compact('item', 'user', 'address', 'sessionPayment'));
     }
 
     public function editShippingAddress (Item $item) {
@@ -45,10 +46,14 @@ class PurchaseController extends Controller
                 'building' => $request->building,
             ],
         ]);
+        if ($request->has('payment_method')) {
+            session(['payment_method' => $request->payment_method]);
+        }
         return redirect()->route('purchase.show', ['item' => $item->id])->with('success', '配送先を変更しました');
     }
 
     public function store (PurchaseRequest $request, Item $item){
+        $item->refresh();
         if ($item->is_sold) {
             return redirect()->route('items.index')
                 ->with('error', 'この商品は既に売約済みです。');
@@ -62,14 +67,11 @@ class PurchaseController extends Controller
             'address' => $shippingData['address'] ?? $profile->address,
             'building' => $shippingData['building'] ?? $profile->building,
         ]);
-        // shipping_address_id をリクエストにマージしてバリデーション
-        $request->merge(['shipping_address_id' => $shippingAddress->id]);
-        $validated = $request->validate($request->rules());
         Purchase::create([
             'user_id' => $user->id,
             'item_id' => $item->id,
             'shipping_address_id' => $shippingAddress->id,
-            'payment_method' => $validated['payment_method'],
+            'payment_method' => $request->payment_method,
         ]);
         //購入完了後セッション削除
         session()->forget('shipping_address');

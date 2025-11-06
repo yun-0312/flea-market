@@ -41,6 +41,7 @@
             @enderror
         </div>
         <div class="edit-address-form__group">
+            <input type="hidden" name="payment_method" value="{{ old('payment_method', session('payment_method')) }}">
             <input type="submit" class="edit-address-form__btn" value="更新する">
         </div>
     </form>

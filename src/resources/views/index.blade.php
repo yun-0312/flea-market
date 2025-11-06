@@ -9,6 +9,11 @@
 @endsection
 
 @section('content')
+    @if (session('error'))
+        <p class="alert-danger">
+            {{ session('error') }}
+        </p>
+    @endif
 <div class="content__link">
     <a href="/?tab=recommend" class="content-link__item {{ $tab === 'recommend' ? 'active' : '' }}">おすすめ</a>
     <a href="?tab=mylist" class="content-link__item {{ $tab === 'mylist' ? 'active' : '' }}">マイリスト</a>
