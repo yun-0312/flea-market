@@ -35,7 +35,7 @@ Route::middleware('auth')->group(function() {
     Route::get('/mypage/profile', [ProfileController::class, 'edit'])->name('profile.edit');
 
     //プロフィール更新処理
-    Route::patch('/mypage/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::post('/mypage/profile', [ProfileController::class, 'update'])->name('profile.update');
 
     // お気に入り登録・解除
     Route::post('/favorite/{item}', [FavoriteController::class, 'toggle'])->name('favorite.toggle');

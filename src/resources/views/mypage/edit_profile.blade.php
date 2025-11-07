@@ -10,6 +10,11 @@
 
 @section('content')
 <div class="content-wrapper">
+    @if (session('success'))
+    <p class="alert">
+        {{ session('success') }}
+    </p>
+    @endif
     <h2 class="edit-profile-form__heading">プロフィール設定</h2>
     <form class="form" action="{{ route('profile.update') }}" method="post" enctype="multipart/form-data">
         @csrf
@@ -29,7 +34,7 @@
         </div>
         <div class="edit-profile-form__group">
             <label class="edit-profile-form__label" for="name">ユーザー名</label>
-            <input type="text" id="name" class="edit-profile-form__input" name="name" value="{{ old('name') }}">
+            <input type="text" id="name" class="edit-profile-form__input" name="name" value="{{ old('name', auth()->user()->name) }}">
             @error('name')
             <p class="edit-profile-form__error-message">
                 {{ $message }}
@@ -38,7 +43,7 @@
         </div>
         <div class="edit-profile-form__group">
             <label class="edit-profile-form__label" for="post_code">郵便番号</label>
-            <input type="text" id="post_code" class="edit-profile-form__input" name="post_code" value="{{ old('post_code') }}">
+            <input type="text" id="post_code" class="edit-profile-form__input" name="post_code" value="{{ old('post_code', $profile->post_code ?? '') }}">
             @error('post_code')
             <p class="edit-profile-form__error-message">
                 {{ $message }}
@@ -47,7 +52,7 @@
         </div>
         <div class="edit-profile-form__group">
             <label class="edit-profile-form__label" for="address">住所</label>
-            <input type="text" id="address" class="edit-profile-form__input" name="address" value="{{ old('address') }}">
+            <input type="text" id="address" class="edit-profile-form__input" name="address" value="{{ old('address', $profile->address ?? '') }}">
             @error('address')
             <p class="edit-profile-form__error-message">
                 {{ $message }}
@@ -56,7 +61,7 @@
         </div>
         <div class="edit-profile-form__group">
             <label class="edit-profile-form__label" for="building">建物名</label>
-            <input type="text" id="building" class="edit-profile-form__input" name="building" value="{{ old('building') }}">
+            <input type="text" id="building" class="edit-profile-form__input" name="building" value="{{ old('building', $profile->building ?? '') }}">
             @error('building')
             <p class="edit-profile-form__error-message">
                 {{ $message }}

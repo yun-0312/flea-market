@@ -29,16 +29,22 @@ class ProfileController extends Controller
     public function edit ()
     {
         $user = auth()->user();
-        return view('mypage.edit_profile', compact('user'));
+        $profile = $user->profile;
+        return view('mypage.edit_profile', compact('profile'));
     }
 
-    public function update (ProfileRequest $request)
+    public function update(ProfileRequest $request)
     {
         $user = auth()->user();
-        $user->update($request->validated());
+        $profile = $user->profile ?? new Profile(['user_id' => $user->id]);
+        $profile->fill($request->validated());
+        if ($request->hasFile('image_url')) {
+            $path = $request->file('image_url')->store('image/profiles', 'public');
+            $profile->image_url = basename($path);
+        }
 
-        return redirect ()
-            ->route('profile.edit')
-            ->with('success', 'プロフィールを更新しました');
+        $profile->save();
+        $user->update(['name' => $request->input('name')]);
+        return redirect()->route('profile.edit')->with('success', 'プロフィールを更新しました');
     }
 }
