@@ -29,6 +29,8 @@ Route::get('/item/{item}',[ItemController::class, 'show'])->name('item.show');
 
 // ログイン後
 Route::middleware('auth')->group(function() {
+    //マイページ画面
+    Route::get('/mypage',[ProfileController::class, 'show'])->name('mypage.show');
     //プロフィール編集画面表示
     Route::get('/mypage/profile', [ProfileController::class, 'edit'])->name('profile.edit');
 

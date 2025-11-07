@@ -12,6 +12,7 @@
     width: 370px;
     height: 36px;
     margin-left: 25px;
+    min-width: 250px;
 }
 
 .header-logo__image {
@@ -23,6 +24,7 @@
     height: 50px;
     text-align: center;
     margin: 15px auto;
+    min-width: 300px;
 }
 
 .header-search__input {
@@ -50,7 +52,7 @@
     font-weight: 400;
     white-space: nowrap;
     flex: auto;
-    margin-right:10px ;
+    margin-right: 10px;
 }
 
 .header-nav__link {
@@ -78,8 +80,37 @@
     height: 50px;
 }
 
-.header-nav__button:hobver {
+.header-nav__button:hover {
     background: #ddd;
+}
+
+@media screen and (max-width: 850px) and (min-width: 769px) {
+    .header {
+        flex-wrap: wrap;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px 20px;
+        height: auto;
+    }
+
+    .header-logo {
+        order: 1;
+        width: 40%;
+        margin: 0;
+    }
+
+    .header-nav {
+        order: 2;
+        width: 55%;
+        justify-content: flex-end;
+        margin: 0;
+    }
+
+    .header-search__form {
+        order: 3;
+        width: 100%;
+        margin-top: 10px;
+    }
 }
 
 /* スマホ対応 */

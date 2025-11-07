@@ -8,6 +8,11 @@ use App\Http\Requests\ProfileRequest;
 
 class ProfileController extends Controller
 {
+    public function show () {
+        $user = auth()->user();
+        return view('mypage.mypage', compact('user'));
+    }
+    
     public function edit ()
     {
         $user = auth()->user();
