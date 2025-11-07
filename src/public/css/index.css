@@ -15,10 +15,15 @@
     font-weight: 700;
     text-decoration: none;
     color: #5F5F5F;
+    white-space: nowrap;
 }
 
 .content-link__item:first-child {
     margin-left: 200px;
+}
+
+.content-link__item.active {
+    color: #FF0000;
 }
 
 .items {
@@ -82,6 +87,10 @@
 }
 
 @media (max-width: 650px) {
+    .content-link__item:first-child {
+        margin-left: 100px;
+    }
+
     .items {
         grid-template-columns: repeat(auto-fill, 290px);
         justify-content: center;
