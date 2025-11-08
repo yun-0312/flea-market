@@ -23,7 +23,7 @@
             <h2 class="item__name">
                 {{ $item['name'] }}
                 @if ($item->is_sold)
-                <span class="sold__label">sold</span>
+                <span class="sold__label">SOLD</span>
                 @endif
             </h2>
             <p class="item__brand">

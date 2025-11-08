@@ -16,7 +16,7 @@
             </form>
         </li>
         <li class="header-nav__item">
-            <a href="" class="header-nav__link">マイページ</a>
+            <a href="{{ route('mypage.show')}}" class="header-nav__link">マイページ</a>
         </li>
         <li class="header-nav__item">
             <a href="" class="header-nav__button">出品</a>

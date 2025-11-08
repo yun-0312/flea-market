@@ -5,6 +5,7 @@
     max-width: 1400px;
     width: 90%;
 }
+
 .mypage__image-section {
     display: flex;
     align-items: center;
@@ -138,26 +139,26 @@
 
 @media (max-width: 850px) {
     .mypage__profile {
-            flex-direction: column;
-            gap: 40px;
-            text-align: center;
-        }
+        flex-direction: column;
+        gap: 40px;
+        text-align: center;
+    }
 
-        .mypage__image-section {
-            flex-direction: column;
-            gap: 20px;
-            margin: 0 auto;
-        }
+    .mypage__image-section {
+        flex-direction: column;
+        gap: 20px;
+        margin: 0 auto;
+    }
 
-        .mypage__user-name {
-            font-size: 30px;
-        }
+    .mypage__user-name {
+        font-size: 30px;
+    }
 
-        .edit-profile__link {
-            width: 260px;
-            font-size: 22px;
-            height: 55px;
-        }
+    .edit-profile__link {
+        width: 260px;
+        font-size: 22px;
+        height: 55px;
+    }
 
     .items {
         grid-template-columns: repeat(auto-fill, 290px);
@@ -170,6 +171,7 @@
     .content-link__item:first-child {
         margin-left: 80px;
     }
+
     .mypage__profile {
         flex-direction: column;
         align-items: center;
@@ -191,6 +193,7 @@
     .mypage__user-name {
         font-size: 24px;
     }
+
     .edit-profile__link {
         width: 220px;
         height: 50px;

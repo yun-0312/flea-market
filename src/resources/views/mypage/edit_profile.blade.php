@@ -5,7 +5,7 @@
 @endsection
 
 @section('header')
-@include('layouts.header')
+@include('layouts.header_item')
 @endsection
 
 @section('content')
@@ -21,16 +21,16 @@
         <div class="edit-profile-form__image-section">
             <div class="edit-profile-form__image-circle">
                 {{-- プロフィール画像がある場合は表示 --}}
-                @if(auth()->user()->image_url)
-                <img src="{{ asset('storage/images/' . auth()->user()->image_url) }}" alt="プロフィール画像" class="edit-profile-form__image-preview">
+                @if($profile->image_url)
+                <img src="{{ asset('storage/images/profiles/' . $profile->image_url) }}" alt="プロフィール画像" class="edit-profile-form__image-preview">
                 @else
                 <div class="edit-profile-form__image-placeholder"></div>
                 @endif
-                <label class="edit-profile-form__image-label">
+            </div>
+            <label class="edit-profile-form__image-label">
                     画像を選択する
                     <input type="file" name="image_url" class="edit-profile-form__image-input" hidden>
                 </label>
-            </div>
         </div>
         <div class="edit-profile-form__group">
             <label class="edit-profile-form__label" for="name">ユーザー名</label>

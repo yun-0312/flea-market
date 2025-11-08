@@ -3,6 +3,10 @@
     margin: 58px auto 0;
 }
 
+.alert {
+    color: red;
+}
+
 .edit-profile-form__heading {
     text-align: center;
     font-weight: 700;
@@ -13,8 +17,8 @@
 .edit-profile-form__image-section {
     display: flex;
     align-items: center;
-    gap: 100px;
-    margin-bottom: 40px;
+    gap: 40px;
+    margin: 0 0 40px 10px;
 }
 
 .edit-profile-form__image-circle {

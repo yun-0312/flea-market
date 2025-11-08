@@ -14,7 +14,7 @@
         <div class="mypage__image-circle">
             {{-- プロフィール画像がある場合は表示 --}}
             @if($profile && $profile->image_url)
-            <img src="{{ asset('storage/images/profile/' . $profile->image_url) }}" alt="プロフィール画像" class="mypage__image-preview">
+            <img src="{{ asset('storage/images/profiles/' . $profile->image_url) }}" alt="プロフィール画像" class="mypage__image-preview">
             @else
             <div class="mypage__image-placeholder"></div>
             @endif

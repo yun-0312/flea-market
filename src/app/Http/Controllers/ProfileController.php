@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use App\Models\Profile;
 use App\Models\Item;
 use App\Models\Purchase;
@@ -39,10 +40,15 @@ class ProfileController extends Controller
         $profile = $user->profile ?? new Profile(['user_id' => $user->id]);
         $profile->fill($request->validated());
         if ($request->hasFile('image_url')) {
-            $path = $request->file('image_url')->store('image/profiles', 'public');
+            if ($profile->image_url) {
+                $oldPath = 'public/images/profiles/' . $profile->image_url;
+                if (Storage::exists($oldPath)) {
+                    Storage::delete($oldPath);
+                }
+            }
+            $path = $request->file('image_url')->store('public/images/profiles');
             $profile->image_url = basename($path);
         }
-
         $profile->save();
         $user->update(['name' => $request->input('name')]);
         return redirect()->route('profile.edit')->with('success', 'プロフィールを更新しました');
