@@ -12,12 +12,17 @@ Laravel環境構築
   3. 「.env.example」ファイルを 「.env」ファイルに命名を変更。または、新しく.envファイルを作成、環境変数を変更
   4. 環境変数を以下に修正
 ``` text
+    #　データベース設定
      DB_CONNECTION=mysql
      DB_HOST=mysql
      DB_PORT=3306
      DB_DATABASE=laravel_db
      DB_USERNAME=laravel_user
      DB_PASSWORD=laravel_pass
+
+    #　Stripe設定
+    STRIPE_PUBLIC=[pk_test_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx] #[]に取得した公開可能キーを記載
+    STRIPE_SECRET=[sk_test_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx]　#[]に取得した秘密キーを記載
 ```
   5.アプリケーションキーの作成
 ``` bash
@@ -30,6 +35,11 @@ php artisan migrate
   7.シーディングの実行
 ``` bash
 php artisan db:seed
+```
+
+  8.ストレージリンクを作成
+``` bash
+php artisan strage:link
 ```
 
 ## 使用技術
