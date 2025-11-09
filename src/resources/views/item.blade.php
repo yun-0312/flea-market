@@ -9,12 +9,17 @@
 @endsection
 
 @section('content')
+@if (session('error'))
+<p class="alert alert-danger">
+    {{ session('error') }}
+</p>
+@endif
+@if (session('success'))
+<div class="alert alert-success">
+    {{ session('success') }}
+</div>
+@endif
 <div class="item">
-    @if (session('error'))
-        <p class="alert alert-danger">
-            {{ session('error') }}
-        </p>
-    @endif
     <div class="item__container">
         <div class="item__image-wrap">
             <img src="{{ asset('storage/images/items/' . $item['image_url']) }}" alt="商品画像" class="item__image">

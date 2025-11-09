@@ -51,7 +51,12 @@ Route::middleware('auth')->group(function() {
 
     //配送先住所変更画面
     Route::get('purchase/address/{item}', [PurchaseController::class, 'editShippingAddress'])->name('purchase.edit');
+
     //配送先住所変更
     Route::post('purchase/address/{item}', [PurchaseController::class, 'saveShippingAddress'])
     ->name('purchase.save');
+
+    //Stripe決済
+    Route::get('/stripe/success/{item}', [PurchaseController::class, 'success'])->name('stripe.success');
+    Route::get('/stripe/cancel/{item}', [PurchaseController::class, 'cancel'])->name('stripe.cancel');
 });
