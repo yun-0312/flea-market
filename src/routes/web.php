@@ -7,6 +7,7 @@ use App\Http\Controllers\ItemController;
 use App\Http\Controllers\FavoriteController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\PurchaseController;
+use App\Http\Controllers\StripeWebhookController;
 
 /*
 |--------------------------------------------------------------------------
@@ -59,4 +60,13 @@ Route::middleware('auth')->group(function() {
     //Stripe決済
     Route::get('/stripe/success/{item}', [PurchaseController::class, 'success'])->name('stripe.success');
     Route::get('/stripe/cancel/{item}', [PurchaseController::class, 'cancel'])->name('stripe.cancel');
+
+    //商品出品画面
+    Route::get('/sell', [ItemController::class, 'create'])->name('item.create');
+
+    //商品出品処理
+    Route::post('/sell', [ItemController::class, 'store'])->name('item.store');
 });
+
+//Stripe決済（Webhook）
+Route::post('/stripe/webhook', [StripeWebhookController::class, 'handle']);

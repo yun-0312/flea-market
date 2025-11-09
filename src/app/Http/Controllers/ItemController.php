@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Item;
+use App\Models\Category;
+use App\Http\Requests\ExhibitionRequest;
 
 class ItemController extends Controller
 {
@@ -36,5 +38,14 @@ class ItemController extends Controller
     public function show (Item $item) {
         $item->load('favoritedBy');
         return view('item', compact('item'));
+    }
+
+    public function create () {
+        $categories = Category::all();
+        return view('exhibition', compact('categories'));
+    }
+
+    public function store (ExhibitionRequest $request) {
+        
     }
 }

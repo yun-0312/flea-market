@@ -28,9 +28,9 @@
                 @endif
             </div>
             <label class="edit-profile-form__image-label">
-                    画像を選択する
-                    <input type="file" name="image_url" class="edit-profile-form__image-input" hidden>
-                </label>
+                画像を選択する
+                <input type="file" name="image_url" class="edit-profile-form__image-input" hidden>
+            </label>
         </div>
         <div class="edit-profile-form__group">
             <label class="edit-profile-form__label" for="name">ユーザー名</label>
