@@ -30,9 +30,12 @@
             <label class="exhibition-form__label">カテゴリー</label>
             <div class="exhibition-form__category">
                 @foreach($categories as $category)
-                <label class="inline-block mr-3">
-                    <input type="checkbox" name="categories[]" value="{{ $category->id }}" {{ (is_array(old('categories')) && in_array($category->id, old('categories'))) ? 'checked' : '' }}>
-                    {{ $category->name }}
+                <label class="category-button">
+                    <input type="checkbox" 
+                        name="categories[]" 
+                        value="{{ $category->id }}" 
+                        {{ (is_array(old('categories')) && in_array($category->id, old('categories'))) ? 'checked' : '' }}>
+                    <span>{{ $category->name }}</span>
                 </label>
                 @endforeach
             </div>
