@@ -65,6 +65,29 @@
     display: none;
 }
 
+.edit-profile-form__image-remove {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    background-color: rgba(0, 0, 0, 0.6);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 24px;
+    height: 24px;
+    font-size: 16px;
+    line-height: 1;
+    cursor: pointer;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    transition: background-color 0.2s;
+}
+
+.edit-profile-form__image-remove:hover {
+    background-color: rgba(0, 0, 0, 0.8);
+}
+
 /* === 入力フォーム部分 === */
 .edit-profile-form__group {
     margin: 20px 10px;

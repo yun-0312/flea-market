@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 use App\Models\Item;
 use App\Models\Category;
 use App\Http\Requests\ExhibitionRequest;
@@ -45,7 +47,20 @@ class ItemController extends Controller
         return view('exhibition', compact('categories'));
     }
 
-    public function store (ExhibitionRequest $request) {
-        
+    public function store (Request $request) {
+            $imagePath = $request->file('image_url')->store('public/images/items');
+            $item = Item::create([
+                'user_id'    => Auth::id(),
+                'name'       => $request->name,
+                'brand'      => $request->brand,
+                'description' => $request->description,
+                'price'      => $request->price,
+                'condition'  => $request->condition,
+                'image_url'  => basename($imagePath),
+            ]);
+            $item->categories()->sync($request->categories);
+            return redirect()
+                ->route('mypage.show')
+                ->with('success', '商品を出品しました！');
     }
 }
