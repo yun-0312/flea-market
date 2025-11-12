@@ -77,13 +77,9 @@
                 <div class="item__information">
                     <h4 class="item__information-title">カテゴリー</h4>
                     <div class="item__information-categories">
-                        <p class="item__information-category">洋服</p>
-                        <p class="item__information-category">メンズ</p>
-                        <p class="item__information-category">メンズ</p>
-                        <p class="item__information-category">メンズ</p>
-                        <p class="item__information-category">メンズ</p>
-                        <p class="item__information-category">メンズ</p>
-                        <p class="item__information-category">メンズ</p>
+                        @foreach ($item->categories as $category)
+                            <p class="item__information-category">{{ $category->name }}</p>
+                        @endforeach
                     </div>
                 </div>
                 <div class="item__information">

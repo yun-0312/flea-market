@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Foundation\Auth\EmailVerificationRequest;
+use Illuminate\Http\Request;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ItemController;
@@ -19,6 +21,7 @@ use App\Http\Controllers\StripeWebhookController;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
 // ログイン
 Route::post('login', [LoginController::class, 'store'])->name('login');
 
@@ -28,8 +31,25 @@ Route::get('/', [ItemController::class, 'index'])->name('items.index');
 //商品詳細
 Route::get('/item/{item}',[ItemController::class, 'show'])->name('item.show');
 
+//メール認証画面
+Route::get('/email/verify', function () {
+    return view('auth.verify-email');
+})->middleware('auth')->name('verification.notice');
+
+//メール内のリンククリック時
+Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
+    $request->fulfill();
+    return redirect('/');
+})->middleware(['auth', 'signed'])->name('verification.verify');
+
+//認証メール再送信
+Route::post('/email/verification-notification', function (Request $request) {
+    $request->user()->sendEmailVerificationNotification();
+    return back()->with('message', '確認メールを再送しました。');
+})->middleware(['auth', 'throttle:6,1'])->name('verification.send');
+
 // ログイン後
-Route::middleware('auth')->group(function() {
+Route::middleware(['auth', 'verified'])->group(function() {
     //マイページ画面
     Route::get('/mypage',[ProfileController::class, 'show'])->name('mypage.show');
     //プロフィール編集画面表示

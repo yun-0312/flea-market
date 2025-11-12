@@ -37,7 +37,7 @@
             <div class="exhibition-form__category">
                 @foreach($categories as $category)
                 <label class="category-button">
-                    <input type="checkbox"
+                    <input class="category-button__item" type="checkbox"
                         name="categories[]"
                         value="{{ $category->id }}"
                         {{ (is_array(old('categories')) && in_array($category->id, old('categories'))) ? 'checked' : '' }}>
@@ -87,7 +87,7 @@
         </div>
         <div class="exhibition-form__group">
             <label class="exhibition-form__label" for="description">商品の説明</label>
-            <input type="text" class="exhibition-form__input" name="description" value="{{ old('description') }}">
+            <textarea name="description" id="description" class="exhibition-form__textarea">{{ old('description') }}</textarea>
             @error('description')
             <p class="exhibition-form__error-message">
                 {{ $message }}

@@ -38,7 +38,7 @@ class ItemController extends Controller
     }
 
     public function show (Item $item) {
-        $item->load('favoritedBy');
+        $item->load(['favoritedBy', 'categories']);
         return view('item', compact('item'));
     }
 
