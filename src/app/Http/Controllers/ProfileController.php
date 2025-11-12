@@ -30,7 +30,7 @@ class ProfileController extends Controller
     public function edit ()
     {
         $user = auth()->user();
-        $profile = $user->profile;
+        $profile = $user->profile ?? new Profile();
         return view('mypage.edit_profile', compact('profile'));
     }
 

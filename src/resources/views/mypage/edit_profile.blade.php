@@ -22,9 +22,9 @@
             <div class="edit-profile-form__image-circle">
                 {{-- プロフィール画像がある場合は表示 --}}
                 @if($profile->image_url)
-                <img src="{{ asset('storage/images/profiles/' . $profile->image_url) }}" alt="プロフィール画像" class="edit-profile-form__image-preview">
+                    <img src="{{ asset('storage/images/profiles/' . $profile->image_url) }}" alt="プロフィール画像" class="edit-profile-form__image-preview">
                 @else
-                <div class="edit-profile-form__image-placeholder"></div>
+                    <div class="edit-profile-form__image-placeholder"></div>
                 @endif
             </div>
             <label class="edit-profile-form__image-label">
