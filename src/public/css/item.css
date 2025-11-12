@@ -8,6 +8,10 @@
     color: red;
 }
 
+.alert-success {
+    color: blue;
+}
+
 .item__container {
     display: flex;
     max-width: 1100px;

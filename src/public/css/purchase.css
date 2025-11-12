@@ -159,6 +159,10 @@
     opacity: 0.9;
 }
 
+.purchase-form__error-message {
+    color: red;
+}
+
 @media (min-width: 1400px) {
     .purchase__container {
         max-width: 1400px;

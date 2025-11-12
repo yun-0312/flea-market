@@ -28,6 +28,22 @@ class PurchaseRequest extends FormRequest
         ];
     }
 
+        public function withValidator($validator)
+    {
+        $validator->after(function ($validator) {
+            $user = auth()->user();
+            $sessionAddress = session('shipping_address');
+            $profile = $user->profile;
+            // 配送先が未設定の場合
+            $hasSessionAddress = $sessionAddress && !empty($sessionAddress['post_code']) && !empty($sessionAddress['address']);
+            $hasProfileAddress = $profile && !empty($profile->post_code) && !empty($profile->address);
+
+            if (!$hasSessionAddress && !$hasProfileAddress) {
+                $validator->errors()->add('shipping_address_id', '配送先を登録してください');
+            }
+        });
+    }
+
     public function messages()
     {
         return [

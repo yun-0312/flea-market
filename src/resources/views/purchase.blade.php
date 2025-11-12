@@ -41,13 +41,13 @@
                         <a href="{{ route('purchase.edit', ['item' => $item->id]) }}" class="purchase__information-change-link">変更する</a>
                     </div>
                     @if($address)
-                    <p class="purchase__information-post-code">〒{{ $address->post_code }}</p>
-                    <p class="purchase__information-address">{{ $address->address }} {{ $address->building }}</p>
+                        <p class="purchase__information-post-code">〒{{ $address->post_code }}</p>
+                        <p class="purchase__information-address">{{ $address->address ?? '' }} {{ $address->building ?? '' }}</p>
                     @else
-                    <p class="purchase__information-post-code">配送先が設定されていません</p>
+                        <p class="purchase__information-post-code">配送先が設定されていません</p>
                     @endif
                     @error('shipping_address_id')
-                    <p class="purchase-form__error-message">
+                        <p class="purchase-form__error-message">
                         {{ $message }}
                     </p>
                     @enderror

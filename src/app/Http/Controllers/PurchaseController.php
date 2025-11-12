@@ -68,7 +68,7 @@ class PurchaseController extends Controller
         $address = [
             'post_code' => $shippingData['post_code'] ?? $profile->post_code,
             'address' => $shippingData['address'] ?? $profile->address,
-            'building' => $shippingData['building'] ?? $profile->building,
+            'building' => $shippingData['building'] ?? ($profile->building ?? null),
         ];
         Session(['shipping_address' => $address]);
         //支払い方法を判定（1=コンビニ、2=カード）
