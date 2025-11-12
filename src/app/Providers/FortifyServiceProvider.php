@@ -8,6 +8,7 @@ use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Facades\Auth;
 use Laravel\Fortify\Fortify;
 use Laravel\Fortify\Contracts\RegisterResponse;
 use Laravel\Fortify\Contracts\LoginResponse;
@@ -48,5 +49,22 @@ class FortifyServiceProvider extends ServiceProvider
         });
         Fortify::updateUserProfileInformationUsing(UpdateUserProfileInformation::class);
         Fortify::ignoreRoutes();
+        Fortify::authenticateUsing(function ($request) {
+            $user = \App\Models\User::where('email', $request->email)->first();
+
+            if ($user && \Hash::check($request->password, $user->password)) {
+                return $user;
+            }
+        });
+        Fortify::redirects('login', function () {
+            $user = Auth::user();
+            if (!$user->hasVerifiedEmail()) {
+                return route('verification.notice');
+            }
+            return route('mypage.show');
+        });
+        Fortify::redirects('register', function () {
+            return route('verification.notice');
+        });
     }
 }
