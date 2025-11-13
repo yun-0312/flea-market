@@ -22,12 +22,10 @@ class CreateNewUser implements CreatesNewUsers
         $request = app(RegisterRequest::class);
         $validated = $request->validateResolvedWithData($input);
 
-        $user = User::create([
+        return User::create([
             'name' => $validated['name'],
             'email' => $validated['email'],
             'password' => Hash::make($validated['password']),
         ]);
-        event(new Registered($user));
-        return $user;
     }
 }

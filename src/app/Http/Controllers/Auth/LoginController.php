@@ -19,7 +19,12 @@ class LoginController extends Controller
         }
 
         $request->session()->regenerate();
-
-        return redirect()->intended('/');
+        $user = Auth::user();
+                if (!$user->hasVerifiedEmail()) {
+            return redirect()->route('verification.notice')
+                ->with('message', 'メールアドレスの確認が必要です。登録時に送信されたメールを確認してください。');
+        }
+        // ✅ 認証済みならマイページへ
+        return redirect()->intended(route('mypage.show'));
     }
 }

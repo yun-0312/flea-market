@@ -14,12 +14,12 @@
         登録していただいたメールアドレスに認証メールを送付しました。<br>
         メール認証を完了してください。
     </p>
-    <form class="verify__form" method="post" action="{{ route('verification.send') }}">
-        @csrf
-        <button type="submit" class="verify__button">認証はこちらから</button>
-    </form>
-    <a href="{{ route('verification.send') }}" class="verify__resend">
-        認証メールを再送する
+    <a href="http://localhost:8025" class="verify__button" target="blank" target="_blank" rel="noopener noreferrer">認証はこちらから</a>
     </a>
+    <form class="resend__form" method="post" action="{{ route('verification.send') }}">
+        @csrf
+        <input type="submit" class="verify__resend" value="認証メールを再送する">
+    </form>
+
 </div>
 @endsection
