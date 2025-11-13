@@ -18,17 +18,17 @@ class UsersTableSeeder extends Seeder
         DB::table('users')->insert([
             [
                 'name' => '鈴木　一郎',
-                'email' => 'test@test.com',
+                'email' => 'user1@test.com',
                 'password' => Hash::make('testtest'),
             ],
             [
                 'name' => '田中　花子',
-                'email' => 'testtest@test.com',
+                'email' => 'user2@test.com',
                 'password' => Hash::make('testtest'),
             ],
             [
                 'name' => '木村　次郎',
-                'email' => 'test@testtest.com',
+                'email' => 'user3@testtest.com',
                 'password' => Hash::make('testtest'),
             ],
         ]);
