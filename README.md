@@ -53,15 +53,15 @@ php artisan strage:link
 ```
 
 ## サンプルユーザーアカウント（動作確認用）
-・鈴木　一郎（商品１、３、５、７、９を出品）
-Email: user1@test.com
-Password: testtest
-・田中　花子（商品２、４、６、８、１０を出品）
-Email: user2@test.com
-Password: testtest
-・木村　次郎（出品なし）
-Email: user3@test.com
-Password: testtest
+・鈴木　一郎（商品１、３、５、７、９を出品<br />
+Email: user1@test.com<br />
+Password: testtest<br />
+・田中　花子（商品２、４、６、８、１０を出品）<br />
+Email: user2@test.com<br />
+Password: testtest<br />
+・木村　次郎（出品なし）<br />
+Email: user3@test.com<br />
+Password: testtest<br />
 
 ## 使用技術
   <img src="https://img.shields.io/badge/-PHP-777BB4.svg?logo=php&style=plastic"> <img src="https://img.shields.io/badge/-Laravel-E74430.svg?logo=laravel&style=plastic"> <img src="https://img.shields.io/badge/-Composer-885630.svg?logo=composer&style=plastic"> <img src="https://img.shields.io/badge/-Mysql-4479A1.svg?logo=mysql&style=plastic"> <img src="https://img.shields.io/badge/-Nginx-269539.svg?logo=nginx&style=plastic"> <img src="https://img.shields.io/badge/-Docker-1488C6.svg?logo=docker&style=plastic"> <img src="https://img.shields.io/badge/-Stripe-008CDD.svg?logo=stripe&style=plastic"> <br />
