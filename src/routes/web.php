@@ -36,10 +36,15 @@ Route::get('/email/verify', function () {
     return view('auth.verify-email');
 })->middleware('auth')->name('verification.notice');
 
-//メール内のリンククリック時
+//メール認証リンククリック時
 Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
     $request->fulfill();
-    return redirect('/');
+    $user = $request->user();
+    if (!$user->profile) {
+        return redirect()->route('profile.edit')
+            ->with('success', 'メール認証が完了しました。プロフィールを登録してください。');
+    }
+    return redirect()->route('mypage.show');
 })->middleware(['auth', 'signed'])->name('verification.verify');
 
 //認証メール再送信
