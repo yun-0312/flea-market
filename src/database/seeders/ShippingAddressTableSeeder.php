@@ -14,7 +14,7 @@ class ShippingAddressTableSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('profiles')->insert([
+        DB::table('shipping_addresses')->insert([
             [
                 'user_id' => 1,
                 'post_code' => '100-0011',
