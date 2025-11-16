@@ -3,10 +3,9 @@
 namespace Tests\Feature;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 
-class RegisterValidationTest extends TestCase
+class RegisterTest extends TestCase
 {
     use RefreshDatabase;
     /**
@@ -18,9 +17,7 @@ class RegisterValidationTest extends TestCase
     //userの名前入力のバリデーションチェック
     public function username_is_required()
     {
-        $this->withSession([]);
         $response = $this->post('/register', [
-            '_token' => csrf_token(),
             'name' => '',
             'email' => 'test@example.com',
             'password' => 'password123',
@@ -35,9 +32,7 @@ class RegisterValidationTest extends TestCase
     //userのメールアドレス入力のバリデーションチェック
     public function email_is_required()
     {
-        $this->withSession([]);
         $response = $this->post('/register', [
-            '_token' => csrf_token(),
             'name' => 'test',
             'email' => '',
             'password' => 'password123',
@@ -52,9 +47,7 @@ class RegisterValidationTest extends TestCase
     //userのパスワード入力のバリデーションチェック
     public function password_is_required()
     {
-        $this->withSession([]);
         $response = $this->post('/register', [
-            '_token' => csrf_token(),
             'name' => 'test',
             'email' => 'test@example.com',
             'password' => '',
@@ -69,9 +62,7 @@ class RegisterValidationTest extends TestCase
     //userのパスワード入力(8文字以上）のバリデーションチェック
     public function password_must_be_at_least_8_characters()
     {
-        $this->withSession([]);
         $response = $this->post('/register', [
-            '_token' => csrf_token(),
             'name' => 'test',
             'email' => 'test@example.com',
             'password' => '1234',
@@ -86,9 +77,7 @@ class RegisterValidationTest extends TestCase
     //userの確認用パスワード入力のバリデーションチェック
     public function password_confirmation_must_match()
     {
-        $this->withSession([]);
         $response = $this->post('/register', [
-            '_token' => csrf_token(),
             'name' => 'test',
             'email' => 'test@example.com',
             'password' => 'password123',
@@ -103,7 +92,6 @@ class RegisterValidationTest extends TestCase
     // 全ての項目が入力されている場合、会員情報が登録されログイン画面に遷移される
     public function user_can_register_with_valid_input()
     {
-        $this->withSession([]);
         $response = $this->post('/register', [
             'name' => 'test',
             'email' => 'test@example.com',

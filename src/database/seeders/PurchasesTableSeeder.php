@@ -30,7 +30,7 @@ class PurchasesTableSeeder extends Seeder
             [
                 'user_id' => 2,
                 'item_id' => 3,
-                'shipping_address_id' => 1,
+                'shipping_address_id' => 3,
                 'payment_method' => 1,
             ],
         ]);

@@ -14,7 +14,7 @@ class LoginController extends Controller
 
         if (!Auth::attempt($credentials, $request->boolean('remember'))) {
             throw ValidationException::withMessages([
-                'email' => __('ログイン情報が正しくありません。'),
+                'email' => __('ログイン情報が登録されていません'),
             ]);
         }
 

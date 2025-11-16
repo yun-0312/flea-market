@@ -28,7 +28,7 @@
             <h2 class="item__name">
                 {{ $item['name'] }}
                 @if ($item->is_sold)
-                <span class="sold__label">SOLD</span>
+                <span class="sold__label">Sold</span>
                 @endif
             </h2>
             <p class="item__brand">

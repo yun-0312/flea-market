@@ -31,7 +31,7 @@ class UsersTableSeeder extends Seeder
             ],
             [
                 'name' => '木村　次郎',
-                'email' => 'user3@testtest.com',
+                'email' => 'user3@test.com',
                 'email_verified_at' => new DateTime(),
                 'password' => Hash::make('testtest'),
             ],

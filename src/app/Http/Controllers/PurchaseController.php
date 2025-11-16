@@ -65,15 +65,20 @@ class PurchaseController extends Controller
         $shippingData = session('shipping_address');
         // Stripeの秘密鍵をセット
         Stripe::setApiKey(config('services.stripe.secret'));
-        $address = [
+        $address = ShippingAddress::create([
+            'user_id' => $user->id,
             'post_code' => $shippingData['post_code'] ?? $profile->post_code,
             'address' => $shippingData['address'] ?? $profile->address,
             'building' => $shippingData['building'] ?? ($profile->building ?? null),
-        ];
-        Session(['shipping_address' => $address]);
+        ]);
+        Purchase::create([
+            'user_id' => $user->id,
+            'item_id' => $item->id,
+            'shipping_address_id' => $address->id,
+            'payment_method' => $request->payment_method,
+        ]);
         //支払い方法を判定（1=コンビニ、2=カード）
         $method = $request->payment_method == 1 ? 'konbini' : 'card';
-        session(['selected_payment_method' => $request->payment_method]);
         // Stripe セッション作成
         $session = Session::create([
             'payment_method_types' => [$method],
@@ -90,40 +95,9 @@ class PurchaseController extends Controller
             'mode' => 'payment',
             'success_url' => route('stripe.success', [
                 'item' => $item->id,
-                // 'address' => $address,
-                // 'method' => $method,
             ]),
-            'cancel_url' => route('stripe.cancel', ['item' => $item->id]),
         ]);
-        return redirect($session->url);
-    }
-
-    //支払い完了時の処理
-    public function success(Request $request, Item $item) {
-        $user = auth()->user();
-        // $addressData = $request->address;
-        $addressData = session('shipping_address');
-        $shippingAddress = ShippingAddress::create([
-            'user_id' => $user->id,
-            'post_code' => $addressData['post_code'],
-            'address' => $addressData['address'],
-            'building' => $addressData['building'] ?? null,
-        ]);
-        $paymentMethod = session('selected_payment_method', 2);
-        Purchase::create([
-            'user_id' => $user->id,
-            'item_id' => $item->id,
-            'shipping_address_id' => $shippingAddress->id,
-            'payment_method' => $paymentMethod,
-        ]);
-        session()->forget('shipping_address', 'selected_payment_method');
-        return redirect()->route('item.show', ['item' => $item->id])
-            ->with('success', '購入が完了しました');
-    }
-
-    //Stripeキャンセル時
-    public function cancel(Item $item)
-    {
-        return redirect()->route('item.show', $item->id)->with('error', '決済がキャンセルされました。もう一度お試しください。');
+        session()->forget('shipping_address');
+        return redirect()->away($session->url);
     }
 }

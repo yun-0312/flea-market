@@ -36,7 +36,7 @@
             <p class="items__name">
                 {{ $item->name }}
                 @if ($item->is_sold)
-                <span class="sold__label">SOLD</span>
+                <span class="sold__label">Sold</span>
                 @endif
             </p>
         </div>
