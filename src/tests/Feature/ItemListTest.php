@@ -40,7 +40,7 @@ class ItemListTest extends TestCase
         ]);
         $response = $this->get('/');
         $response->assertSee('Sold');
-        $response->assertSee('$item->name');
+        $response->assertSee($item->name);
     }
 
     /** @test */
