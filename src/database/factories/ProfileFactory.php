@@ -18,7 +18,7 @@ class ProfileFactory extends Factory
         return [
             'user_id' => null,
             'image_url' => 'default-profile.jpg',
-            'postal_code' => $this->faker->postcode(),
+            'post_code' => $this->faker->postcode(),
             'address' => $this->faker->address(),
             'building' => $this->faker->secondaryAddress(),
         ];
