@@ -23,7 +23,7 @@ class PurchaseTest extends TestCase
     //「購入する」ボタンを押下すると購入が完了する
     public function user_can_create_purchase_records()
     {
-                $user = User::factory()->create();
+        $user = User::factory()->create();
         Profile::factory()->create([
             'user_id' => $user->id,
             'post_code' => '123-4567',
@@ -32,8 +32,8 @@ class PurchaseTest extends TestCase
         ]);
         $this->actingAs($user);
         $item = Item::factory()->create();
-                session([
-            'shipping_address' => [
+            session([
+                'shipping_address' => [
                 'post_code' => '111-2222',
                 'address' => '大阪府大阪市1-2-3',
                 'building' => '大阪ビル',

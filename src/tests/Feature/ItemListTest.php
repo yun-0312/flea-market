@@ -49,12 +49,15 @@ class ItemListTest extends TestCase
     {
         $user = User::factory()->create();
         $this->actingAs($user);
-        $myItem = Item::factory()->create([
+        Item::factory()->create([
             'user_id' => $user->id,
+            'name' => 'MY_PRODUCT'
         ]);
-        $otherItem = Item::factory()->create();
+        Item::factory()->create([
+            'name' => 'OTHER_PRODUCT',
+        ]);
         $response = $this->get('/');
-        $response->assertDontSee($myItem->name);
-        $response->assertSee($otherItem->name);
+        $response->assertDontSee('MY_PRODUCT');
+        $response->assertSee('OTHER_PRODUCT');
     }
 }

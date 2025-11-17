@@ -48,7 +48,7 @@ class ItemController extends Controller
     }
 
     public function store (ExhibitionRequest $request) {
-            $imagePath = $request->file('image_url')->store('public/images/items');
+            $imagePath = $request->file('image_url')->store('images/items', 'public');
             $item = Item::create([
                 'user_id'    => Auth::id(),
                 'name'       => $request->name,
