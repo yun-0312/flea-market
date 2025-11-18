@@ -85,4 +85,4 @@ Password: testtest<br />
 ## URL
 　・開発環境：http://localhost/<br />
   　・phpMyAdmin：http://localhost:8080/<br />
-   ・MailHog：http://localhost:8025
+    ・MailHog：http://localhost:8025
