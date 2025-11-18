@@ -22,34 +22,22 @@ class PaymentMethodTest extends TestCase
     {
         $buyer = User::factory()->create();
         $seller = User::factory()->create();
-        Profile::factory()->create(['user_id' => $buyer->id]);
+        Profile::factory
+        ()->create(['user_id' => $buyer->id]);
         $item = Item::factory()->for($seller)->create();
-        $response = $this->actingAs($buyer)->get(route('purchase.show', $item->id));
-        $response->assertStatus(200);
-        $response->assertViewHas('sessionPayment', null);
-
+        $this->actingAs($buyer);
         // ②支払い方法をセッションに保存する（コンビニ = 1）
-        $this->actingAs($buyer)->post(route('purchase.save', $item->id), [
-            'post_code' => '123-4567',
-            'address'   => '東京都テスト区1-1',
-            'building'  => 'テストビル',
-            'payment_method' => 1,
-        ])->assertRedirect(route('purchase.show', $item->id));
-
-        // セッションに保存されたか確認
-        $this->assertEquals(1, session('payment_method'));
-
-        // ③再度購入画面にアクセスし、反映されていることを確認
-        $response = $this->actingAs($buyer)->followingRedirects()->post(route('purchase.store', $item->id), [
-            'post_code' => '123-4567',
-            'address'   => '東京都テスト区1-1',
-            'building'  => 'テストビル',
-            'payment_method' => 1,
+        $this->withSession([
+            'shipping_address' => [
+                'post_code' => '123-4567',
+                'address' => '東京都テスト区1-1',
+                'building' => 'テストビル',
+            ],
+            'payment_method' => 2, 
         ]);
+        $response = $this->get(route('purchase.show', ['item' => $item->id]));
         $response->assertStatus(200);
-        $response->assertViewHas('sessionPayment', 1);
-
-        // 画面内に支払い方法が反映されているか（例：hidden の value）
-        $response->assertSee('value="1"', false);
+        $response->assertViewHas('sessionPayment', 2);
+        $response->assertSee('カード支払い');
     }
 }

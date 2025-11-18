@@ -11,13 +11,9 @@ use Tests\TestCase;
 class FavoriteTest extends TestCase
 {
     use RefreshDatabase;
-    /**
-     * A basic feature test example.
-     *
-     * @return void
-     */
+
     /** @test */
-    //いいねアイコンを押すと、言い値した商品として登録できる
+    //いいねアイコンを押すと、いいねした商品として登録できる
     public function user_can_add_favorite()
     {
         $user = User::factory()->create();
