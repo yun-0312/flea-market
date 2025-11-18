@@ -32,13 +32,20 @@ class MyListTest extends TestCase
     public function sold_label_is_displayed_for_purchased_items_in_mylist()
     {
         $user = User::factory()->create();
+        $seller = User::factory()->create([
+            'name' => '出品者',
+        ]);
+        $purchaser = User::factory()->create([
+            'name' => '購入者',
+        ]);
         $this->actingAs($user);
         $soldItem = Item::factory()->create([
+            'user_id' => $seller->id,
             'name' => '購入済み商品',
         ]);
         Purchase::factory()->create([
             'item_id' => $soldItem->id,
-            'user_id' => $user->id,
+            'user_id' => $purchaser->id,
         ]);
         $user->favorites()->attach($soldItem->id);
 
