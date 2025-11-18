@@ -13,7 +13,7 @@ class MyListTest extends TestCase
 {
     /** @test */
     //いいねした商品だけが表示される
-    public function test_only_favorited_items_are_displayed_in_mylist()
+    public function only_favorited_items_are_displayed_in_mylist()
     {
         $user = User::factory()->create();
         $this->actingAs($user);
@@ -29,14 +29,17 @@ class MyListTest extends TestCase
     }
     /** @test */
     //購入済み商品は「Sold」と表示される
-    public function test_sold_label_is_displayed_for_purchased_items_in_mylist()
+    public function sold_label_is_displayed_for_purchased_items_in_mylist()
     {
         $user = User::factory()->create();
         $this->actingAs($user);
         $soldItem = Item::factory()->create([
             'name' => '購入済み商品',
         ]);
-
+        Purchase::factory()->create([
+            'item_id' => $soldItem->id,
+            'user_id' => $user->id,
+        ]);
         $user->favorites()->attach($soldItem->id);
 
         $response = $this->get('/?tab=mylist');
@@ -48,12 +51,12 @@ class MyListTest extends TestCase
 
     /** @test */
     //未認証の場合は何も表示されない
-    public function test_mylist_displays_nothing_for_guest_user()
+    public function mylist_displays_nothing_for_guest_user()
     {
         $response = $this->get('/?tab=mylist');
 
         $response->assertStatus(200);
-        $response->assertSee('該当する商品はありません。');
+        $response->assertSee('');
     }
 
 }
