@@ -58,7 +58,7 @@ php artisan strage:link
 ```
 
 ## サンプルユーザーアカウント（動作確認用）
-・鈴木　一郎（商品１、３、５、７、９を出品<br />
+・鈴木　一郎（商品１、３、５、７、９を出品）<br />
 Email: user1@test.com<br />
 Password: testtest<br />
 ・田中　花子（商品２、４、６、８、１０を出品）<br />
