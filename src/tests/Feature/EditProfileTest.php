@@ -31,5 +31,4 @@ class EditProfileTest extends TestCase
         $response->assertSee('value="東京都豊島区池袋1-1-1"', false);
         $response->assertSee('value="花子ビル"', false);
     }
-
 }
