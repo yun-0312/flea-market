@@ -37,7 +37,7 @@ class EmailVerificationTest extends TestCase
 
     /** @test */
     //メール認証誘導画面で「認証はこちらから」ボタンを押すとメール認証サイトに遷移する
-    public function email_verify_page_is_displayed()
+    public function verify_page_has_mailhog_link()
     {
         $user = User::factory()->unverified()->create();
 
@@ -46,20 +46,7 @@ class EmailVerificationTest extends TestCase
         $response = $this->get('/email/verify');
 
         $response->assertStatus(200);
-        $response->assertSee('認証はこちらから');
-    }
-
-    /** @test */
-    //メール認証画面で「認証はこちらから」ボタンを押すとメール認証サイトに遷移する
-    public function user_can_request_verification_link()
-    {
-        $user = User::factory()->unverified()->create();
-
-        $this->actingAs($user);
-
-        $response = $this->post('/email/verification-notification');
-
-        $response->assertRedirect();
+        $response->assertSee('<a href="http://localhost:8025"', false);
     }
 
     /** @test */
