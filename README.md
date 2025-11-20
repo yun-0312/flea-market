@@ -14,8 +14,8 @@ Dockerビルド
 Laravel環境構築
   1. `docker-compose exec php bash`
   2. `composer install`
-  3. 「.env.example」ファイルを 「.env」ファイルに命名を変更。または、新しく.envファイルを作成、環境変数を変更
-  4. 環境変数を以下に修正
+  3. 「.env.example」ファイルを 「.env」ファイルに命名を変更。または、新しく.envファイルを作成
+  4. .envファイルの環境変数を以下に修正
 ``` text
     #　データベース設定
      DB_CONNECTION=mysql
@@ -58,6 +58,7 @@ php artisan strage:link
 ```
 
 ## サンプルユーザーアカウント（動作確認用）
+UsersTableSeedeで登録されるメール認証済みのテストユーザーです。
 ・鈴木　一郎（商品１、３、５、７、９を出品）<br />
 Email: user1@test.com<br />
 Password: testtest<br />
