@@ -58,7 +58,7 @@ php artisan strage:link
 ```
 
 ## サンプルユーザーアカウント（動作確認用）
-UsersTableSeedeで登録されるメール認証済みのテストユーザーです。
+UsersTableSeedeで登録されるメール認証済みのテストユーザーです。<br />
 ・鈴木　一郎（商品１、３、５、７、９を出品）<br />
 Email: user1@test.com<br />
 Password: testtest<br />
