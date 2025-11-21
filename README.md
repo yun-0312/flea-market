@@ -20,11 +20,11 @@ docker-compose up -d --build
 Laravel環境構築
   1. PHPコンテナに入る
 ``` bash
-  docker-compose exec php bash
+docker-compose exec php bash
 ```
-  2.必要な依存関係をインストール
+  2. 必要な依存関係をインストール
 ``` bash
-     composer install
+composer install
 ```
   3. 「.env.example」ファイルを 「.env」ファイルに命名を変更。または、新しく.envファイルを作成   
   4. .envファイルの環境変数を以下に修正
