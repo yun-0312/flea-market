@@ -8,8 +8,14 @@ Dockerを利用した環境構築が可能で、ユーザー登録、商品の�
 
 ## 環境構築
 Dockerビルド
-  1. `git clone git@github.com:yun-0312/flea-market.git`
-  2. `docker-compose up -d --build`
+  1. 
+``` bash
+git clone git@github.com:yun-0312/flea-market.git
+```
+  2.
+``` bash
+docker-compose up -d --build
+```
 
 Laravel環境構築
   1. `docker-compose exec php bash`
@@ -82,8 +88,8 @@ Password: testtest<br />
 
 ## テスト
 このプロジェクトでは、Laravelのテスト機能を用いてユニットテストおよび機能テストを実装しています。<br />
-
 主に以下の機能に対してテストを行っています。<br />
+
   1.会員登録機能<br />
   2.ログイン機能<br />
   3.ログアウト機能<br />
@@ -93,7 +99,7 @@ Password: testtest<br />
   7.商品詳細情報取得<br />
   8.いいね機能<br />
   9.コメント送信機能<br />
-  10.商品購入機能
+  10.商品購入機能<br />
   11.支払い方法選択機能<br />
   12.配送先変更機能<br />
   13.ユーザー情報取得<br />
