@@ -8,19 +8,25 @@ Dockerを利用した環境構築が可能で、ユーザー登録、商品の�
 
 ## 環境構築
 Dockerビルド
-  1. 
+  1. リポジトリをクローン
 ``` bash
 git clone git@github.com:yun-0312/flea-market.git
 ```
-  2.
+  2.Dockerコンテナをビルドして起動
 ``` bash
 docker-compose up -d --build
 ```
 
 Laravel環境構築
-  1. `docker-compose exec php bash`
-  2. `composer install`
-  3. 「.env.example」ファイルを 「.env」ファイルに命名を変更。または、新しく.envファイルを作成
+  1. PHPコンテナに入る
+``` bash
+  docker-compose exec php bash
+```
+  2.必要な依存関係をインストール
+``` bash
+     composer install
+```
+  3. 「.env.example」ファイルを 「.env」ファイルに命名を変更。または、新しく.envファイルを作成   
   4. .envファイルの環境変数を以下に修正
 ``` text
     #　データベース設定
