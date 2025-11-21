@@ -128,7 +128,7 @@ mysql -u root -p
 
  3. MySQLログイン後、テスト用データベースを作成
 ``` bash
-    CREATE DATABASE demo_test;
+CREATE DATABASE demo_test;
 ```
 ### テスト環境のアプリケーションキーについて
 
