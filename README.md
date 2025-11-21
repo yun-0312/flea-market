@@ -116,16 +116,17 @@ Password: testtest<br />
 
 ### テスト環境の設定
 テスト実行時には、専用のテスト用データベースを使用します。<br />
-  1. MySQLコンテナに入る
+ 1. MySQLコンテナに入る
 ``` bash
 docker-compose exec mysql bash
 ```
-  2. rootユーザ（管理者)でログインする
+ 2. rootユーザ（管理者)でログインする
 ``` bash
 mysql -u root -p
 ```
-パスワードは、docker-compose.ymlファイルのMYSQL_ROOT_PASSWORD:に設定されている「root」を入力する。<br />
-  3. MySQLログイン後、テスト用データベースを作成
+※パスワードは、docker-compose.ymlファイルのMYSQL_ROOT_PASSWORD:に設定されている「root」を入力する。<br />
+
+ 3. MySQLログイン後、テスト用データベースを作成
 ``` bash
     CREATE DATABASE demo_test;
 ```
