@@ -82,6 +82,7 @@ Password: testtest<br />
 
 ## テスト
 このプロジェクトでは、Laravelのテスト機能を用いてユニットテストおよび機能テストを実装しています。<br />
+
 主に以下の機能に対してテストを行っています。<br />
   1.会員登録機能<br />
   2.ログイン機能<br />
@@ -99,6 +100,43 @@ Password: testtest<br />
   14.ユーザー情報変更<br />
   15.出品商品情報登録<br />
   16.メール認証機能<br />
+
+テスト環境の設定
+  1. `docker-compose exec php bash`
+  2. `composer install`
+  3. 「.env.example」ファイルを 「.env」ファイルに命名を変更。または、新しく.envファイルを作成
+  4. .envファイルの環境変数を以下に修正
+``` text
+    #　データベース設定
+     DB_CONNECTION=mysql
+     DB_HOST=mysql
+     DB_PORT=3306
+     DB_DATABASE=laravel_db
+     DB_USERNAME=laravel_user
+     DB_PASSWORD=laravel_pass
+
+    # MailHog設定
+      MAIL_MAILER=smtp
+      MAIL_HOST=mailhog
+      MAIL_PORT=1025
+      MAIL_USERNAME=null
+      MAIL_PASSWORD=null
+      MAIL_ENCRYPTION=null
+      MAIL_FROM_ADDRESS="noreply@example.com"
+      MAIL_FROM_NAME="${APP_NAME}"
+
+    #　Stripe設定
+    STRIPE_PUBLIC=[pk_test_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx] #[]に取得した公開可能キーを記載
+    STRIPE_SECRET=[sk_test_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx] #[]に取得した秘密キーを記載
+```
+  5.アプリケーションキーの作成
+``` bash
+php artisan key:generate
+```
+  6.マイグレーションの実行
+``` bash
+php artisan migrate
+```
 
 ## ER図
 <img width="711" height="391" alt="Image" src="https://github.com/user-attachments/assets/9ce38803-408d-45fb-a29e-8b4e4211a3dd" />
