@@ -136,7 +136,7 @@ mysql -u root -p
 
 ``` bash
 php artisan key:generate --env=testing
-``` bash
+```
 ## テストの実行方法
 このプロジェクトでは、`RefreshDatabase` と `Factory` を使用しており、テスト実行時に自動でマイグレーションとテストデータの生成が行われます。<br />
 以下のコマンドでテストを実行してください。
