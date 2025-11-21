@@ -115,7 +115,7 @@ Password: testtest<br />
   16.メール認証機能<br />
 
 ### テスト環境の設定
-<p>テスト実行時には、専用のテスト用データベースを使用します。</p>
+テスト実行時には、専用のテスト用データベースを使用します。<br />
   1. MySQLコンテナに入る
 ``` bash
 docker-compose exec mysql bash
