@@ -12,7 +12,7 @@ Dockerビルド
 ``` bash
 git clone git@github.com:yun-0312/flea-market.git
 ```
-  2.Dockerコンテナをビルドして起動
+ 2. Dockerコンテナをビルドして起動
 ``` bash
 docker-compose up -d --build
 ```
