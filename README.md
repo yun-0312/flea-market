@@ -7,7 +7,7 @@ Dockerを利用した環境構築が可能で、ユーザー登録、商品の�
 
 
 ## 環境構築
-Dockerビルド
+<strong>Dockerビルド</strong>
   1. リポジトリをクローン
 ``` bash
 git clone git@github.com:yun-0312/flea-market.git
@@ -17,7 +17,7 @@ git clone git@github.com:yun-0312/flea-market.git
 docker-compose up -d --build
 ```
 
-Laravel環境構築
+<strong>Laravel環境構築</strong>
   1. PHPコンテナに入る
 ``` bash
 docker-compose exec php bash
