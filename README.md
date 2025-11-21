@@ -124,7 +124,7 @@ docker-compose exec mysql bash
 ``` bash
 mysql -u root -p
 ```
-パスワードは、docker-compose.ymlファイルのMYSQL_ROOT_PASSWORD:に設定されている「root」を入力する。
+パスワードは、docker-compose.ymlファイルのMYSQL_ROOT_PASSWORD:に設定されている「root」を入力する。<br />
   3. MySQLログイン後、テスト用データベースを作成
 ``` bash
     CREATE DATABASE demo_test;
