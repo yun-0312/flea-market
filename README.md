@@ -7,7 +7,7 @@ Dockerを利用した環境構築が可能で、ユーザー登録、商品の�
 
 
 ## 環境構築
-<strong>Dockerビルド</strong>
+### Dockerビルド
   1. リポジトリをクローン
 ``` bash
 git clone git@github.com:yun-0312/flea-market.git
@@ -17,7 +17,7 @@ git clone git@github.com:yun-0312/flea-market.git
 docker-compose up -d --build
 ```
 
-<strong>Laravel環境構築</strong>
+### Laravel環境構築
   1. PHPコンテナに入る
 ``` bash
 docker-compose exec php bash
@@ -70,7 +70,8 @@ php artisan strage:link
 ```
 
 ## サンプルユーザーアカウント（動作確認用）
-UsersTableSeedeで登録されるメール認証済みのテストユーザーです。<br />
+UsersTableSeederで登録されるメール認証済みのテストユーザーです。<br />
+
 ・鈴木　一郎（商品１、３、５、７、９を出品）<br />
 Email: user1@test.com<br />
 Password: testtest<br />
@@ -113,41 +114,34 @@ Password: testtest<br />
   15.出品商品情報登録<br />
   16.メール認証機能<br />
 
-テスト環境の設定
-  1. `docker-compose exec php bash`
-  2. `composer install`
-  3. 「.env.example」ファイルを 「.env」ファイルに命名を変更。または、新しく.envファイルを作成
-  4. .envファイルの環境変数を以下に修正
-``` text
-    #　データベース設定
-     DB_CONNECTION=mysql
-     DB_HOST=mysql
-     DB_PORT=3306
-     DB_DATABASE=laravel_db
-     DB_USERNAME=laravel_user
-     DB_PASSWORD=laravel_pass
-
-    # MailHog設定
-      MAIL_MAILER=smtp
-      MAIL_HOST=mailhog
-      MAIL_PORT=1025
-      MAIL_USERNAME=null
-      MAIL_PASSWORD=null
-      MAIL_ENCRYPTION=null
-      MAIL_FROM_ADDRESS="noreply@example.com"
-      MAIL_FROM_NAME="${APP_NAME}"
-
-    #　Stripe設定
-    STRIPE_PUBLIC=[pk_test_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx] #[]に取得した公開可能キーを記載
-    STRIPE_SECRET=[sk_test_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx] #[]に取得した秘密キーを記載
-```
-  5.アプリケーションキーの作成
+### テスト環境の設定
+<p>テスト実行時には、専用のテスト用データベースを使用します。</p>
+  1. MySQLコンテナに入る
 ``` bash
-php artisan key:generate
+docker-compose exec mysql bash
 ```
-  6.マイグレーションの実行
+  2. rootユーザ（管理者)でログインする
 ``` bash
-php artisan migrate
+mysql -u root -p
+```
+パスワードは、docker-compose.ymlファイルのMYSQL_ROOT_PASSWORD:に設定されている「root」を入力する。
+  3. MySQLログイン後、テスト用データベースを作成
+``` bash
+    CREATE DATABASE demo_test;
+```
+### テスト環境のアプリケーションキーについて
+
+`.env.testing` にはテスト用のアプリケーションキーが含まれています。  
+そのまま使用しても問題ありませんが、必要に応じて以下のコマンドで再生成してください。
+
+```bash
+php artisan key:generate --env=testing
+```
+### テストの実行方法
+このプロジェクトでは、`RefreshDatabase` と `Factory` を使用しており、テスト実行時に自動でマイグレーションとテストデータの生成が行われます。<br />
+以下のコマンドでテストを実行してください。
+```bash
+php artisan test
 ```
 
 ## ER図
