@@ -18,13 +18,14 @@
     <h2 class="edit-profile-form__heading">プロフィール設定</h2>
     <form class="form" action="{{ route('profile.update') }}" method="post" enctype="multipart/form-data">
         @csrf
+        @method('PATCH')
         <div class="edit-profile-form__image-section">
             <div class="edit-profile-form__image-circle">
                 {{-- プロフィール画像がある場合は表示 --}}
                 @if($profile->image_url)
-                    <img src="{{ asset('storage/images/profiles/' . $profile->image_url) }}" alt="プロフィール画像" class="edit-profile-form__image-preview">
+                <img src="{{ asset('storage/images/profiles/' . $profile->image_url) }}" alt="プロフィール画像" class="edit-profile-form__image-preview">
                 @else
-                    <div class="edit-profile-form__image-placeholder"></div>
+                <div class="edit-profile-form__image-placeholder"></div>
                 @endif
             </div>
             <label class="edit-profile-form__image-label">

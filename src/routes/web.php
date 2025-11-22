@@ -54,13 +54,14 @@ Route::post('/email/verification-notification', function (Request $request) {
 
 // ログイン後
 Route::middleware(['auth', 'verified'])->group(function() {
-    //マイページ画面
+    //プロフィール画面
     Route::get('/mypage',[ProfileController::class, 'show'])->name('mypage.show');
+
     //プロフィール編集画面表示
     Route::get('/mypage/profile', [ProfileController::class, 'edit'])->name('profile.edit');
 
     //プロフィール更新処理
-    Route::post('/mypage/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::patch('/mypage/profile', [ProfileController::class, 'update'])->name('profile.update');
 
     // お気に入り登録・解除
     Route::post('/favorite/{item}', [FavoriteController::class, 'toggle'])->name('favorite.toggle');
