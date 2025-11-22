@@ -9,11 +9,7 @@ use Tests\TestCase;
 class LogoutTest extends TestCase
 {
     use RefreshDatabase;
-    /**
-     * A basic feature test example.
-     *
-     * @return void
-     */
+
     /** @test */
     // userはログアウトできる
     public function user_can_logout()

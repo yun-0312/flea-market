@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\Purchase;
 use App\Models\Item;
 use App\Models\ShippingAddress;
@@ -97,7 +96,7 @@ class PurchaseController extends Controller
                 'quantity' => 1,
             ]],
             'mode' => 'payment',
-            'success_url' => route('items . index'),
+            'success_url' => route('items.index'),
         ]);
         session()->forget(['shipping_address', 'payment_method']);
         return redirect()->away($session->url);

@@ -11,11 +11,7 @@ use Tests\TestCase;
 class PaymentMethodTest extends TestCase
 {
     use RefreshDatabase;
-    /**
-     * A basic feature test example.
-     *
-     * @return void
-     */
+
     /** @test */
     //小計画面で変更が反映される
     public function selected_payment_method_is_reflected_on_purchase_page()

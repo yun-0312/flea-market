@@ -3,10 +3,8 @@
 namespace Tests\Feature;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Support\Facades\Http;
 use App\Models\User;
 use App\Models\Item;
-use App\Models\ShippingAddress;
 use Tests\TestCase;
 use Stripe\Checkout\Session;
 use Mockery;
@@ -73,5 +71,4 @@ class AddressChangeTest extends TestCase
             'payment_method' => 2,
         ]);
     }
-
 }

@@ -5,12 +5,13 @@ namespace Tests\Feature;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use App\Models\User;
 use App\Models\Item;
-use App\Models\Favorite;
 use App\Models\Purchase;
 use Tests\TestCase;
 
 class MyListTest extends TestCase
 {
+    use RefreshDatabase;
+
     /** @test */
     //いいねした商品だけが表示される
     public function only_favorited_items_are_displayed_in_mylist()

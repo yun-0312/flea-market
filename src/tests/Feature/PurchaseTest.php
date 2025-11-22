@@ -13,11 +13,6 @@ use Tests\TestCase;
 class PurchaseTest extends TestCase
 {
     use RefreshDatabase;
-    /**
-     * A basic feature test example.
-     *
-     * @return void
-     */
 
     /** @test */
     //「購入する」ボタンを押下すると購入が完了する
