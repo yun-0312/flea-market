@@ -133,7 +133,7 @@ CREATE DATABASE demo_test;
 ### テスト環境のアプリケーションキーについて
 
 `.env.testing` にはテスト用のアプリケーションキーが含まれています。  
-そのまま使用しても問題ありませんが、必要に応じて以下のコマンドで再生成してください。
+そのまま使用しても問題ありませんが、必要に応じてPHPコンテナ内で以下のコマンドで再生成してください。
 
 ``` bash
 php artisan key:generate --env=testing
@@ -141,6 +141,10 @@ php artisan key:generate --env=testing
 ### テストの実行方法
 このプロジェクトでは、`RefreshDatabase` と `Factory` を使用しており、テスト実行時に自動でマイグレーションとテストデータの生成が行われます。<br />
 以下のコマンドでテストを実行してください。
+
+``` bash
+docker-compose exec php bash
+```
 ``` bash
 php artisan test
 ```
