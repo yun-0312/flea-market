@@ -97,11 +97,9 @@ class PurchaseController extends Controller
                 'quantity' => 1,
             ]],
             'mode' => 'payment',
-            'success_url' => route('stripe.success', [
-                'item' => $item->id,
-            ]),
+            'success_url' => route('items . index'),
         ]);
-        session()->forget('shipping_address');
+        session()->forget(['shipping_address', 'payment_method']);
         return redirect()->away($session->url);
     }
 }

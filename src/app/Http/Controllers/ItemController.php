@@ -12,6 +12,7 @@ use App\Http\Requests\ExhibitionRequest;
 class ItemController extends Controller
 {
     public function index (Request $request) {
+        session()->forget(['shipping_address', 'payment_method']);
         $tab = $request->query('tab', 'recommend');
         $keyword = $request->input('keyword');
 
@@ -38,6 +39,7 @@ class ItemController extends Controller
     }
 
     public function show (Item $item) {
+        session()->forget(['shipping_address', 'payment_method']);
         $item->load(['favoritedBy', 'categories']);
         return view('item', compact('item'));
     }

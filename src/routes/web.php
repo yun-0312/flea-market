@@ -82,9 +82,6 @@ Route::middleware(['auth', 'verified'])->group(function() {
     Route::post('purchase/address/{item}', [PurchaseController::class, 'saveShippingAddress'])
     ->name('purchase.save');
 
-    //Stripe決済画面
-    Route::get('/stripe/success/{item}', [PurchaseController::class, 'success'])->name('stripe.success');
-
     //商品出品画面
     Route::get('/sell', [ItemController::class, 'create'])->name('item.create');
 
