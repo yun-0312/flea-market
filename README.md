@@ -66,7 +66,7 @@ php artisan db:seed
 
   8.ストレージリンクを作成
 ``` bash
-php artisan strage:link
+php artisan storage:link
 ```
 
 ## サンプルユーザーアカウント（動作確認用）
