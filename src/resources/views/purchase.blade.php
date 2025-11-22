@@ -26,8 +26,8 @@
                 <div class="purchase__information-item">
                     <h4 class="purchase__information-item-payment-method">支払い方法</h4>
                     <select name="payment_method" id="payment_method" class="purchase__information-payment-method">
-                        <option value="1" {{ old('payment_method') == 1 ? 'selected' : '' }}>コンビニ払い</option>
-                        <option value="2" {{ old('payment_method') == 2 ? 'selected' : '' }}>カード支払い</option>
+                        <option value="1" {{ ($sessionPayment ?? old('payment_method')) == 1 ? 'selected' : '' }}>コンビニ払い</option>
+                        <option value="2" {{ ($sessionPayment ?? old('payment_method')) == 2 ? 'selected' : '' }}>カード支払い</option>
                     </select>
                     @error('payment_method')
                     <p class="purchase-form__error-message">
@@ -38,16 +38,21 @@
                 <div class="purchase__information-item">
                     <div class="purchase__information-header">
                         <h4 class="purchase__information-shipping-address">配送先</h4>
-                        <a href="{{ route('purchase.edit', ['item' => $item->id]) }}" class="purchase__information-change-link">変更する</a>
+                        <a href="{{ route('purchase.edit', ['item' => $item->id]) }}?payment_method={{ $sessionPayment }}"
+                            id="changeLink"
+                            class="purchase__information-change-link">
+                            変更する
+                        </a>
+
                     </div>
                     @if($address)
-                        <p class="purchase__information-post-code">〒{{ $address->post_code }}</p>
-                        <p class="purchase__information-address">{{ $address->address ?? '' }} {{ $address->building ?? '' }}</p>
+                    <p class="purchase__information-post-code">〒{{ $address->post_code }}</p>
+                    <p class="purchase__information-address">{{ $address->address ?? '' }} {{ $address->building ?? '' }}</p>
                     @else
-                        <p class="purchase__information-post-code">配送先が設定されていません</p>
+                    <p class="purchase__information-post-code">配送先が設定されていません</p>
                     @endif
                     @error('shipping_address_id')
-                        <p class="purchase-form__error-message">
+                    <p class="purchase-form__error-message">
                         {{ $message }}
                     </p>
                     @enderror
@@ -62,11 +67,7 @@
                     <tr>
                         <th class="purchase__table-header">支払い方法</th>
                         <td class="purchase__table-data" id="payment_display">
-                            @if(old('payment_method') == 2)
-                            カード支払い
-                            @else
-                            コンビニ払い
-                            @endif
+                            {{ ($sessionPayment ?? old('payment_method')) == 2 ? 'カード支払い' : 'コンビニ払い' }}
                         </td>
                     </tr>
                 </table>
@@ -78,9 +79,27 @@
 <script>
     const paymentSelect = document.getElementById('payment_method');
     const paymentDisplay = document.getElementById('payment_display');
-    paymentSelect.addEventListener('change', function() {
+    const changeLink = document.getElementById('changeLink');
+    const baseUrl = "{{ route('purchase.edit', ['item' => $item->id]) }}";
+
+    function updateChangeLink() {
+        const selectedValue = paymentSelect.value;
+        changeLink.href = baseUrl + '?payment_method=' + selectedValue;
+    }
+
+    function updateDisplay() {
         const selectedText = paymentSelect.options[paymentSelect.selectedIndex].text;
         paymentDisplay.textContent = selectedText;
+    }
+
+    // 初期化
+    updateChangeLink();
+    updateDisplay();
+
+    // 選択変更時に更新
+    paymentSelect.addEventListener('change', function() {
+        updateDisplay();
+        updateChangeLink();
     });
 </script>
 @endsection

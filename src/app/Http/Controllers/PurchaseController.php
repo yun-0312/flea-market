@@ -37,7 +37,11 @@ class PurchaseController extends Controller
 
     public function editShippingAddress (Item $item) {
         $user = auth()->user();
-        return view('shipping_address', compact('item', 'user'));
+        if (request()->has('payment_method')) {
+            session(['payment_method' => request()->payment_method]);
+        }
+        $sessionPayment = session('payment_method');
+        return view('shipping_address', compact('item', 'user', 'sessionPayment'));
     }
 
     public function saveShippingAddress  (AddressRequest $request, Item $item) {
