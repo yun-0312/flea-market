@@ -101,10 +101,6 @@
                             <img src="{{ asset('storage/images/profiles/' . $comment->user->profile->image_url) }}"
                                 alt="プロフィール画像"
                                 class="comment__icon-img">
-                            @else
-                            <img src="{{ asset('img/default_user.png') }}"
-                                alt="デフォルト画像"
-                                class="comment__icon-img">
                             @endif
                         </div>
                         <span class="comment__name">{{ $comment->user->name}}
