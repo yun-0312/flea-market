@@ -39,7 +39,7 @@ class ItemController extends Controller
 
     public function show (Item $item) {
         session()->forget(['shipping_address', 'payment_method']);
-        $item->load(['favoritedBy', 'categories']);
+        $item->load(['favoritedBy', 'categories', 'comments.user.profile',]);
         return view('item', compact('item'));
     }
 

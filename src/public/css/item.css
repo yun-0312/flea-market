@@ -177,6 +177,13 @@
     border-radius: 50%;
 }
 
+.comment__icon-img {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
 .comment__name {
     font-weight: 700;
     font-size: 30px;

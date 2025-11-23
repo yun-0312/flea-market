@@ -78,7 +78,7 @@
                     <h4 class="item__information-title">カテゴリー</h4>
                     <div class="item__information-categories">
                         @foreach ($item->categories as $category)
-                            <p class="item__information-category">{{ $category->name }}</p>
+                        <p class="item__information-category">{{ $category->name }}</p>
                         @endforeach
                     </div>
                 </div>
@@ -96,7 +96,17 @@
                 @forelse ($item->comments as $comment)
                 <div class="comment">
                     <div class="comment__user">
-                        <div class="comment__icon"></div>
+                        <div class="comment__icon">
+                            @if ($comment->user->profile && $comment->user->profile->image_url)
+                            <img src="{{ asset('storage/images/profiles/' . $comment->user->profile->image_url) }}"
+                                alt="プロフィール画像"
+                                class="comment__icon-img">
+                            @else
+                            <img src="{{ asset('img/default_user.png') }}"
+                                alt="デフォルト画像"
+                                class="comment__icon-img">
+                            @endif
+                        </div>
                         <span class="comment__name">{{ $comment->user->name}}
                         </span>
                     </div>
