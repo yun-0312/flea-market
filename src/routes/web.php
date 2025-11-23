@@ -22,7 +22,7 @@ use App\Http\Controllers\PurchaseController;
 */
 
 // ログイン
-Route::post('login', [LoginController::class, 'store'])->name('login');
+Route::post('/login', [LoginController::class, 'store'])->name('login');
 
 //商品一覧（ログイン前）
 Route::get('/', [ItemController::class, 'index'])->name('items.index');
@@ -67,19 +67,19 @@ Route::middleware(['auth', 'verified'])->group(function() {
     Route::post('/favorite/{item}', [FavoriteController::class, 'toggle'])->name('favorite.toggle');
 
     //コメント機能
-    Route::post('item/{item}/comment', [CommentController::class, 'store'])->name('comment.store');
+    Route::post('/item/{item}/comment', [CommentController::class, 'store'])->name('comment.store');
 
     //商品購入画面
-    Route::get('purchase/{item}', [PurchaseController::class, 'show'])->name('purchase.show');
+    Route::get('/purchase/{item}', [PurchaseController::class, 'show'])->name('purchase.show');
 
     //商品購入処理
-    Route::post('purchase/{item}', [PurchaseController::class, 'store'])->name('purchase.store');
+    Route::post('/purchase/{item}', [PurchaseController::class, 'store'])->name('purchase.store');
 
     //配送先住所変更画面
-    Route::get('purchase/address/{item}', [PurchaseController::class, 'editShippingAddress'])->name('purchase.edit');
+    Route::get('/purchase/address/{item}', [PurchaseController::class, 'editShippingAddress'])->name('purchase.edit');
 
     //配送先住所変更
-    Route::post('purchase/address/{item}', [PurchaseController::class, 'saveShippingAddress'])
+    Route::post('/purchase/address/{item}', [PurchaseController::class, 'saveShippingAddress'])
     ->name('purchase.save');
 
     //商品出品画面

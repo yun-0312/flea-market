@@ -17,6 +17,10 @@ class PurchaseController extends Controller
             return redirect()->route('items.index')
                 ->with('error', 'この商品は既に売約済みです。');
         }
+        if ($item->user_id === auth()->id()) {
+            return redirect()->route('mypage.show')
+                ->with('error', 'あなたが出品した商品のため、購入できません。');
+        }
         $user = auth()->user();
         $sessionAddress = session('shipping_address');
         $sessionPayment = session('payment_method');

@@ -9,6 +9,11 @@
 @endsection
 
 @section('content')
+@if (session('error'))
+<p class="alert-danger">
+    {{ session('error') }}
+</p>
+@endif
 <div class="mypage__profile">
     <div class="mypage__image-section">
         <div class="mypage__image-circle">

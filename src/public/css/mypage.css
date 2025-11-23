@@ -129,6 +129,10 @@
     color: red;
 }
 
+.alert-danger {
+    color: red;
+}
+
 @media (max-width: 1400px) {
     .items {
         grid-template-columns: repeat(auto-fill, 290px);

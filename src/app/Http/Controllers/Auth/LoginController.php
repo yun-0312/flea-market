@@ -25,6 +25,6 @@ class LoginController extends Controller
                 ->with('message', 'メールアドレスの確認が必要です。登録時に送信されたメールを確認してください。');
         }
         // ✅ 認証済みならマイページへ
-        return redirect()->intended(route('mypage.show'));
+        return redirect()->intended(route('items.index'));
     }
 }
