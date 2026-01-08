@@ -21,6 +21,8 @@ class ProfileController extends Controller
         } elseif ($page === 'buy') {
             $purchasedItemIds = Purchase::where('user_id', $user->id)->pluck('item_id');
             $items = Item::whereIn('id', $purchasedItemIds)->get();
+        } elseif ($page === 'trading') {
+
         } else {
             $items = collect();
         }

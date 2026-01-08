@@ -31,6 +31,7 @@
 <div class="content__link">
     <a href="{{ route('mypage.show', ['page' => 'sell']) }}" class="content-link__item {{ $page === 'sell' ? 'active' : '' }}">出品した商品</a>
     <a href="{{ route('mypage.show', ['page' => 'buy']) }}" class="content-link__item {{ $page === 'buy' ? 'active' : '' }}">購入した商品</a>
+    <a href="{{ route('mypage.show', ['page' => 'trading']) }}" class="content-link__item {{ $page === 'trading' ? 'active' : '' }}">取引中の商品</a>
 </div>
 <div class="items">
     @forelse ($items as $item)
