@@ -22,7 +22,7 @@ class CreateReviewsTable extends Migration
             $table->text('comment')->nullable();
             $table->timestamps();
 
-            $table->unique(['transaction_message_id', 'reviewer_id']);
+            $table->unique(['transaction_id', 'reviewer_id']);
         });
     }
 
