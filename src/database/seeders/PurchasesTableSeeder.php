@@ -17,7 +17,7 @@ class PurchasesTableSeeder extends Seeder
         DB::table('purchases')->insert([
             [
                 'user_id' => 1,
-                'item_id' => 2,
+                'item_id' => 5,
                 'shipping_address_id' => 1,
                 'payment_method' => 1,
             ],

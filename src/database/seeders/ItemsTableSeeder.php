@@ -25,7 +25,7 @@ class ItemsTableSeeder extends Seeder
                 'condition' => 1,
             ],
             [
-                'user_id' => 2,
+                'user_id' => 1,
                 'name' => 'HDD',
                 'price' => 5000,
                 'brand' => '西芝',
@@ -43,7 +43,7 @@ class ItemsTableSeeder extends Seeder
                 'condition' => 3,
             ],
             [
-                'user_id' => 2,
+                'user_id' => 1,
                 'name' => '革靴',
                 'price' => 4000,
                 'brand' => '',
@@ -70,7 +70,7 @@ class ItemsTableSeeder extends Seeder
                 'condition' => 2,
             ],
             [
-                'user_id' => 1,
+                'user_id' => 2,
                 'name' => 'ショルダーバッグ',
                 'price' => 3500,
                 'brand' => '',
@@ -88,7 +88,7 @@ class ItemsTableSeeder extends Seeder
                 'condition' => 4,
             ],
             [
-                'user_id' => 1,
+                'user_id' => 2,
                 'name' => 'コーヒーミル',
                 'price' => 4000,
                 'brand' => 'Starbacks',

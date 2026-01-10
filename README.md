@@ -3,14 +3,15 @@
 ## プロジェクトの概要
 このプロジェクトは、Laravelを使用したフリマアプリです。<br />
 Dockerを利用した環境構築が可能で、ユーザー登録、商品の出品・購入、お気に入り登録、
-コメント機能を実装しています。
+コメント、取引チャット、通知、取引後の相互評価などフリマアプリに必要な機能を実装しています。
 
 
 ## 環境構築
 ### Dockerビルド
-  1. リポジトリをクローン
+  1. リポジトリをクローンし、プロジェクトフォルダに移動
 ``` bash
 git clone git@github.com:yun-0312/flea-market.git
+cd flea-market
 ```
  2. Dockerコンテナをビルドして起動
 ``` bash
@@ -47,7 +48,7 @@ composer install
       MAIL_FROM_ADDRESS="noreply@example.com"
       MAIL_FROM_NAME="${APP_NAME}"
 
-    #　Stripe設定
+    # Stripe設定
     STRIPE_PUBLIC=[pk_test_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx] #[]に取得した公開可能キーを記載
     STRIPE_SECRET=[sk_test_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx] #[]に取得した秘密キーを記載
 ```
@@ -74,10 +75,10 @@ UsersTableSeederで登録されるメール認証済みのテストユーザー�
 
 ・ログインURL：http://localhost/login
 
-・鈴木　一郎（商品１、３、５、７、９を出品）<br />
+・鈴木　一郎（商品１、２、３、４、５を出品）<br />
 Email: user1@test.com<br />
 Password: testtest<br />
-・田中　花子（商品２、４、６、８、１０を出品）<br />
+・田中　花子（商品６、７、８、９、１０を出品）<br />
 Email: user2@test.com<br />
 Password: testtest<br />
 ・木村　次郎（出品なし）<br />
