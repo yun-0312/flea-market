@@ -28,10 +28,22 @@ class ShippingAddressTableSeeder extends Seeder
                 'building' => '板橋ビル501',
             ],
             [
+                'user_id' => 1,
+                'post_code' => '300-0055',
+                'address' => '東京都新宿区西新宿1-2-3',
+                'building' => '新宿ビル203',
+            ],
+            [
                 'user_id' => 2,
                 'post_code' => '200-0022',
                 'address' => '東京都中野区新井1-2-3',
                 'building' => '中野ビル203',
+            ],
+            [
+                'user_id' => 1,
+                'post_code' => '300-0055',
+                'address' => '東京都新宿区西新宿1-2-3',
+                'building' => '新宿ビル203',
             ],
         ]);
     }

@@ -9,6 +9,8 @@ use App\Http\Controllers\ItemController;
 use App\Http\Controllers\FavoriteController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\PurchaseController;
+use App\Http\Controllers\TransactionController;
+use App\Http\Controllers\TransactionMessageController;
 
 /*
 |--------------------------------------------------------------------------
@@ -87,4 +89,19 @@ Route::middleware(['auth', 'verified'])->group(function() {
 
     //商品出品処理
     Route::post('/sell', [ItemController::class, 'store'])->name('item.store');
+
+    //取引チャット画面
+    Route::get('/transactions/{transaction}', [TransactionController::class, 'show'])->name('transactions.show');
+
+    //取引終了処理
+    Route::post('/transactions/{transaction}/complete', [TransactionController::class, 'complete'])->name('transactions.complete');
+
+    //取引チャット新規作成
+    Route::post('/transactions/{transaction}/messages', [TransactionMessageController::class, 'store'])->name('transactions.messages.store');
+
+    //取引チャット編集
+    Route::put('/messages/{message}', [TransactionMessageController::class, 'update'])->name('transactions.messages.update');
+
+    //取引チャット削除
+    Route::delete('messages/{message}', [TransactionMessageController::class, 'destroy'])->name('transactions.messages.destroy');
 });

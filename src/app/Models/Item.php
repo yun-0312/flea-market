@@ -35,6 +35,11 @@ class Item extends Model
     public function favoritedBy() {
         return $this->belongsToMany(User::class, 'favorites', 'item_id', 'user_id')->withTimestamps();
     }
+
+    public function purchase() {
+        return $this->hasOne(Purchase::class);
+    }
+
     //購入済み表示
     public function getIsSoldAttribute() {
         return Purchase::where('item_id', $this->id)->exists();
@@ -56,5 +61,20 @@ class Item extends Model
             3 => 'やや傷や汚れあり',
             4 => '状態が悪い',
         };
+    }
+
+    //取引中の商品
+    public function scopeTradingForUser($query, $userId) {
+        return $query->whereHas('purchase.transaction', function ($q) use ($userId) {
+            $q->where('status', 'trading')
+            ->where(function ($q) use ($userId) {
+                $q->whereHas('purchase', function ($q) use ($userId) {
+                    $q->where('user_id', $userId);
+                })
+                ->orWhereHas('purchase.item', function ($q) use ($userId) {
+                    $q->where('user_id', $userId);
+                });
+            });
+        });
     }
 }

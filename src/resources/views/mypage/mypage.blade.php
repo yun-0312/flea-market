@@ -31,22 +31,40 @@
 <div class="content__link">
     <a href="{{ route('mypage.show', ['page' => 'sell']) }}" class="content-link__item {{ $page === 'sell' ? 'active' : '' }}">出品した商品</a>
     <a href="{{ route('mypage.show', ['page' => 'buy']) }}" class="content-link__item {{ $page === 'buy' ? 'active' : '' }}">購入した商品</a>
-    <a href="{{ route('mypage.show', ['page' => 'trading']) }}" class="content-link__item {{ $page === 'trading' ? 'active' : '' }}">取引中の商品</a>
+    <a href="{{ route('mypage.show', ['page' => 'trading']) }}" class="content-link__item {{ $page === 'trading' ? 'active' : '' }}">
+        取引中の商品
+        @if ($tradingUnreadCount > 0)
+            <span class="trading-count">{{ $tradingUnreadCount }}</span>
+        @endif
+    </a>
 </div>
 <div class="items">
     @forelse ($items as $item)
     @if ($item)
-    <a href="{{ route('item.show', ['item' => $item->id]) }}" class="items__card-link">
-        <div class="items__card">
-            <img src="{{ asset('storage/images/items/' . $item->image_url) }}" alt="商品画像" class="items__image">
-            <p class="items__name">
-                {{ $item->name }}
-                @if ($item->is_sold)
-                <span class="sold__label">Sold</span>
-                @endif
-            </p>
-        </div>
-    </a>
+        @php
+        $transaction = $tradingTransactions[$item->id] ?? null;
+        @endphp
+        <a href="{{ $transaction
+            ? route('transactions.show', $transaction)
+            : route('item.show', ['item' => $item->id]) }}" class="items__card-link">
+            <div class="items__card">
+                <div class="items__image-wrapper">
+                    <img src="{{ asset('storage/images/items/' . $item->image_url) }}" alt="商品画像" class="items__image">
+                    @php
+                    $unread = $itemUnreadCounts[$item->id] ?? 0;
+                    @endphp
+                    @if ($unread > 0)
+                    <span class="item__unread-badge">{{ $unread }}</span>
+                    @endif
+                </div>
+                <p class="items__name">
+                    {{ $item->name }}
+                    @if ($item->is_sold)
+                    <span class="sold__label">Sold</span>
+                    @endif
+                </p>
+            </div>
+        </a>
     @endif
     @empty
     <p class="items__empty">該当する商品はありません。</p>

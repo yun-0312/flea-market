@@ -16,6 +16,10 @@ class Purchase extends Model
         'payment_method',
     ];
 
+    public function user() {
+        return $this->belongsTo(User::class);
+    }
+
     public function item() {
         return $this->belongsTo(Item::class);
     }

@@ -1,0 +1,286 @@
+.content-wrapper {
+    display: flex;
+    height: 100vh;
+    background: #f5f5f5;
+}
+
+.sidebar {
+    width: 260px;
+    background: #8f8f8f;
+    padding: 0 29px;
+    color: #fff;
+    flex-shrink: 0;
+    text-align: center;
+}
+
+.sidebar__header {
+    font-size: 30px;
+    margin-top: 13px;
+    margin-bottom: 53px;
+}
+
+.transaction__link {
+    display: block;
+    padding: 5px 10px;
+    margin-bottom: 43px;
+    background: #eeefeb;
+    color: #000000;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 24px;
+}
+
+.transaction__link:hover {
+    background: #a0a0a0;
+}
+
+.main-content {
+    flex: 1;
+    background: #fff;
+    display: flex;
+    flex-direction: column;
+}
+
+.main-content__header-wrap {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 15px 30px;
+    border-bottom: 2px solid #5f5f5f;
+}
+
+.partner-user__icon {
+    width: 79px;
+    height: 79px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.main-content__header {
+    font-size: 36px;
+    font-weight: 700;
+    flex: 1;
+}
+
+.btn-danger {
+    background: #ff7b7b;
+    border: none;
+    color: #fff;
+    padding: 8px 16px;
+    border-radius: 20px;
+    cursor: pointer;
+}
+
+.item__wrap {
+    display: flex;
+    gap: 30px;
+    padding: 13px 30px;
+    border-bottom: 2px solid #5f5f5f;
+}
+
+.item-image__container {
+    width: 203px;
+    height: 203px;
+    background: #d9d9d9;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.item-image {
+    max-width: 100%;
+    max-height: 100%;
+}
+
+.item-name {
+    font-size: 48px;
+    font-weight: 700;
+    margin-bottom: 10px;
+}
+
+.item-price {
+    font-size: 36px;
+}
+
+.message__wrap {
+    flex: 1;
+    padding: 25px 30px;
+    overflow-y: auto;
+}
+
+.partner-message__wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-bottom: 25px;
+}
+
+.user-info {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 6px;
+}
+
+.user-message__wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    margin-bottom: 25px;
+}
+
+.user__icon {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.user-info__name {
+    font-size: 20px;
+    font-weight: 700;
+}
+
+.message-content {
+    background: #d9d9d9;
+    padding: 20px 20px;
+    border-radius: 4px;
+    font-size: 14px;
+    width: 40%;
+    height: auto;
+}
+
+/* ===== 編集・削除 ===== */
+.message-actions {
+    margin-top: 4px;
+    display: flex;
+    justify-content: flex-end;
+    gap: 8px;
+}
+
+.message-form__textarea {
+    border: none;
+    background: #d9d9d9;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+    line-height: 1.6;
+    overflow: hidden;
+}
+
+.message-form__textarea:focus {
+    outline: none;
+    background: #ececec;
+}
+
+.message-form__button {
+    background: none;
+    border: none;
+    font-size: 12px;
+    color: #666;
+    cursor: pointer;
+}
+
+.message-form__button:hover {
+    text-decoration: underline;
+}
+
+/* ===== 画像操作UI ===== */
+.message-image-controls {
+    display: flex;
+    gap: 12px;
+    margin-top: 8px;
+    align-items: center;
+}
+
+/* 画像変更ボタン */
+.update-image__button {
+    display: inline-flex;
+    align-items: center;
+    padding: 3px 10px;
+    border: 1px solid #999;
+    border-radius: 6px;
+    font-size: 13px;
+    cursor: pointer;
+    background: #f5f5f5;
+}
+
+.image-button:hover {
+    background: #eaeaea;
+}
+
+/* 画像削除チェック */
+.remove-image {
+    font-size: 12px;
+    color: #c0392b;
+    cursor: pointer;
+}
+
+.remove-image input {
+    margin-right: 4px;
+}
+
+/* メッセージ画像 */
+.message-image {
+    margin-top: 8px;
+    max-width: 220px;
+    border-radius: 3px;
+}
+
+/* =====================
+   メッセージ送信フォーム
+===================== */
+.create-form__wrap {
+    position: sticky;
+    bottom: 0;
+    z-index: 10;
+}
+
+.message-form__create {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 0px 16px;
+    background: #fff;
+}
+
+.message-form__create-input {
+    flex: 1;
+    padding: 5px;
+    border-radius: 4px;
+    border: 1px solid #5f5f5f;
+    font-size: 20px;
+    font-weight: 700;
+}
+
+.image-upload {
+    font-size: 20px;
+    font-weight: 700;
+    cursor: pointer;
+    color: #ff5555;
+    border: 2px solid #ff5555;
+    border-radius: 10px;
+    width: 143px;
+    text-align: center;
+    padding: 2px 5px;
+    margin-left: 5px;
+}
+
+.create__button {
+    width: 80px;
+    height: 67px;
+    background-image: url("/img/input_button.png");
+    background-size: cover;
+    background-repeat: no-repeat;
+    border: none;
+    cursor: pointer;
+}
+
+.form__error {
+    width: 100%;
+    margin: 0 0 0 20px;
+}
+.form__error-message {
+    color: red;
+    margin: 0;
+}

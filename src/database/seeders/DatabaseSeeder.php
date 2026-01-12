@@ -23,6 +23,9 @@ class DatabaseSeeder extends Seeder
             CommentsTableSeeder::class,
             ShippingAddressTableSeeder::class,
             PurchasesTableSeeder::class,
+            TransactionsTableSeeder::class,
+            TransactionMessagesTableSeeder::class,
+            TransactionMessageReadsTableSeeder::class,
         ]);
     }
 }

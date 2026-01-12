@@ -22,29 +22,52 @@ class Transaction extends Model
         return $this->hasMany(TransactionMessage::class);
     }
 
+    public function latestMessage() {
+        return $this->hasOne(TransactionMessage::class)->latestOfMany();
+    }
+
     public function reviews() {
         return $this->hasMany(Review::class);
     }
 
-    public function buyer() {
-        return $this->hasOneThrough(
-            User::class,
-            Purchase::class,
-            'id',
-            'id',
-            'purchase_id',
-            'user_id',
-        );
+    public function scopeTradingForUserWithUnreadCount($query, int $userId)
+    {
+        return $query
+            ->where('status', 'trading')
+            ->whereHas('purchase', function ($q) use ($userId) {
+                $q->where('user_id', $userId) // buyer
+                ->orWhereHas('item', function ($q) use ($userId) {
+                    $q->where('user_id', $userId); // seller
+                });
+            })
+            ->withCount(['messages as unread_count' => function ($q) use ($userId) {
+                $q->where('user_id', '!=', $userId) //　sender
+                    ->whereDoesntHave('reads', function ($q) use ($userId) {
+                        $q->where('user_id', $userId);
+                    })
+                    ->whereNull('deleted_at');
+            }])
+            ->orderByDesc(
+                TransactionMessage::select('created_at')
+                    ->whereColumn('transaction_id', 'transactions.id')
+                    ->whereNull('deleted_at')
+                    ->limit(1)
+            );
     }
 
-    public function seller() {
-        return $this->hasOneThrough(
-            User::class,
-            Purchase::class,
-            'id',
-            'id',
-            'purchase_id',
-            'item_id',
-        )->join('items', 'items.id', '=', 'purchases.item_id');
+    public function isParticipant (int $userId) : bool {
+        return $this->purchase->user_id === $userId
+            || $this->purchase->item->user_id === $userId;
+    }
+
+    public function isBuyer(User $user): bool {
+        return $this->purchase->user_id === $user->id;
+    }
+
+    public function partnerUser(User $user): User {
+        if ($this->purchase->user_id === $user->id) {
+            return $this->purchase->item->user;
+        }
+        return $this->purchase->user;
     }
 }

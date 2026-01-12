@@ -15,6 +15,8 @@ class TransactionMessageRead extends Model
         'read_at',
     ];
 
+    public $timestamps = false;
+
     public function message() {
         return $this->belongsTo(TransactionMessage::class);
     }

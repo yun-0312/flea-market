@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Storage;
 use App\Models\Profile;
 use App\Models\Item;
 use App\Models\Purchase;
+use App\Models\Transaction;
 use App\Http\Requests\ProfileRequest;
 
 
@@ -16,17 +17,25 @@ class ProfileController extends Controller
         $page = $request->query('page', 'sell');
         $user = auth()->user();
         $profile = $user->profile;
-        if ($page === 'sell') {
-            $items = Item::where('user_id', $user->id)->get();
-        } elseif ($page === 'buy') {
-            $purchasedItemIds = Purchase::where('user_id', $user->id)->pluck('item_id');
-            $items = Item::whereIn('id', $purchasedItemIds)->get();
-        } elseif ($page === 'trading') {
-
-        } else {
-            $items = collect();
-        }
-        return view('mypage.mypage', compact('user', 'profile', 'page', 'items'));
+        $items = match ($page) {
+            'sell' => Item::where('user_id', $user->id)->get(),
+            'buy' => Item::whereIn(
+                'id',
+                Purchase::where('user_id', $user->id)->pluck('item_id')
+            )->get(),
+            'trading' => Item::tradingForUser($user->id)->get(),
+            default => collect(),
+        };
+        $tradingTransactions = Transaction::tradingForUserWithUnreadCount($user->id)->get();
+        $tradingUnreadCount = $tradingTransactions->sum('unread_count');
+        $itemUnreadCounts = $tradingTransactions
+            ->groupBy('purchase.item_id')
+            ->map(fn ($txs) => $txs->sum('unread_count'));
+        $tradingTransactions = Transaction::tradingForUserWithUnreadCount($user->id)
+            ->with('purchase.item')
+            ->get()
+            ->keyBy(fn ($t) => $t->purchase->item_id);
+        return view('mypage.mypage', compact('user', 'profile', 'page', 'items', 'tradingUnreadCount', 'itemUnreadCounts', 'tradingTransactions'));
     }
 
     public function edit ()
