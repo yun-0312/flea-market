@@ -3,8 +3,11 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Contracts\Validation\Validator;
+use Illuminate\Http\Exceptions\HttpResponseException;
 
-class TransactionMessageRequest extends FormRequest
+
+class UpdateTransactionMessageRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -16,12 +19,24 @@ class TransactionMessageRequest extends FormRequest
         return true;
     }
 
+    protected $errorBag = 'updateMessage';
+
+    protected function failedValidation(Validator $validator)
+    {
+        throw new HttpResponseException(
+            redirect()
+                ->back()
+                ->withErrors($validator, $this->errorBag)
+                ->with('updated_message_id', $this->route('message')->id)
+                ->withInput()
+        );
+    }
+
     /**
      * Get the validation rules that apply to the request.
      *
      * @return array
      */
-
     public function rules()
     {
         return [

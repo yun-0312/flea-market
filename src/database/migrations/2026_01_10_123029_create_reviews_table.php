@@ -18,7 +18,7 @@ class CreateReviewsTable extends Migration
             $table->foreignId('transaction_id')->constrained()->onDelete('cascade');
             $table->foreignId('reviewer_id')->constrained('users');
             $table->foreignId('reviewee_id')->constrained('users');
-            $table->tinyInteger('score');
+            $table->tinyInteger('rating');
             $table->text('comment')->nullable();
             $table->timestamps();
 

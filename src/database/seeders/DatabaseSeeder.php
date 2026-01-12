@@ -26,6 +26,7 @@ class DatabaseSeeder extends Seeder
             TransactionsTableSeeder::class,
             TransactionMessagesTableSeeder::class,
             TransactionMessageReadsTableSeeder::class,
+            ReviewsTableSeeder::class,
         ]);
     }
 }

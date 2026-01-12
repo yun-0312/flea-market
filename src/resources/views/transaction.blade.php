@@ -58,12 +58,12 @@
                             <p class="user-info__name">{{ $user->name }}</p>
                             <img src="{{ asset('storage/images/profiles/' . optional($user->profile)->image_url) }}" class="user__icon">
                         </div>
-                        @if (session('updated_message_id') === $message->id && $errors->any())
-                            <ul class="message-error">
-                                @foreach ($errors->all() as $error)
-                                    <li>{{ $error }}</li>
+                        @if (session('updated_message_id') === $message->id && $errors->updateMessage->any())
+                            <div class="message-error">
+                                @foreach ($errors->updateMessage->all() as $error)
+                                    <p class="form__error-message">{{ $error }}</p>
                                 @endforeach
-                            </ul>
+                            </div>
                         @endif
                         <div class="message-content">
                             <form id="update-{{ $message->id }}" method="POST" action="{{ route('transactions.messages.update', $message) }}" enctype="multipart/form-data" class="message-form">
@@ -100,18 +100,13 @@
             @endforeach
         </div>
         <div class="create-form__wrap">
+            @if (! session()->has('updated_message_id') && $errors->default->any())
             <div class="form__error">
-                @error('message')
-                    <p class="form__error-message">
-                        {{ $message }}
-                    </p>
-                @enderror
-                @error('image_url')
-                    <p class="form__error-message">
-                        {{ $message }}
-                    </p>
-                @enderror
+                @foreach ($errors->all() as $error)
+                    <p class="form__error-message">{{ $error }}</p>
+                @endforeach
             </div>
+            @endif
             <form method="POST"
                 action="{{ route('transactions.messages.store', $transaction) }}"
                 enctype="multipart/form-data"

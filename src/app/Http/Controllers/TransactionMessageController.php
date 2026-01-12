@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Transaction;
 use App\Models\TransactionMessage;
 use App\Http\Requests\TransactionMessageRequest;
+use App\Http\Requests\UpdateTransactionMessageRequest;
 use Illuminate\Support\Facades\Storage;
 
 class TransactionMessageController extends Controller
@@ -29,7 +30,7 @@ class TransactionMessageController extends Controller
         return back();
     }
 
-    public function update(TransactionMessageRequest $request, TransactionMessage $message) {
+    public function update(UpdateTransactionMessageRequest $request, TransactionMessage $message) {
         if ($message->user_id !== auth()->id()) {
             abort(403);
         }
