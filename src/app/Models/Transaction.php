@@ -31,14 +31,14 @@ class Transaction extends Model
         return $this->hasMany(Review::class);
     }
 
-        public function buyer(): \App\Models\User
+    public function getBuyerAttribute()
     {
-        return $this->purchase->user;
+        return $this->purchase?->user;
     }
 
-    public function seller(): \App\Models\User
+    public function getSellerAttribute()
     {
-        return $this->purchase->item->user;
+        return $this->purchase?->item?->user;
     }
 
     public function hasReviewed(User $user): bool {
