@@ -14,7 +14,7 @@
     {{ session('error') }}
 </p>
 @endif
-@if (session('reviwed'))
+@if (session('reviewed'))
 <p class="success">評価を送信しました</p>
 @endif
 <div class="content__link">

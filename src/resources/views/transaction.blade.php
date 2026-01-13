@@ -124,7 +124,7 @@
     </div>
 </div>
 @if (
-    $transaction->status === 'completed' &&
+    $transaction->status === 'awaiting_review' &&
     ! $transaction->hasReviewed(auth()->user())
 )
 @include('transactions.review_modal')

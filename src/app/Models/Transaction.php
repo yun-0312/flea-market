@@ -18,6 +18,7 @@ class Transaction extends Model
         return $this->belongsTo(Purchase::class);
     }
 
+
     public function messages() {
         return $this->hasMany(TransactionMessage::class);
     }
@@ -30,16 +31,26 @@ class Transaction extends Model
         return $this->hasMany(Review::class);
     }
 
-    public function hasReviewed(User $user) {
+        public function buyer(): \App\Models\User
+    {
+        return $this->purchase->user;
+    }
+
+    public function seller(): \App\Models\User
+    {
+        return $this->purchase->item->user;
+    }
+
+    public function hasReviewed(User $user): bool {
         return $this->reviews()
             ->where('reviewer_id', $user->id)
             ->exists();
     }
 
-    public function scopeTradingForUserWithUnreadCount($query, int $userId)
+    public function scopeActiveForUserWithUnreadCount($query, int $userId)
     {
         return $query
-            ->where('status', 'trading')
+            ->whereIn('status', ['trading', 'awaiting_review'])
             ->whereHas('purchase', function ($q) use ($userId) {
                 $q->where('user_id', $userId) // buyer
                 ->orWhereHas('item', function ($q) use ($userId) {
@@ -47,7 +58,7 @@ class Transaction extends Model
                 });
             })
             ->withCount(['messages as unread_count' => function ($q) use ($userId) {
-                $q->where('user_id', '!=', $userId) //　sender
+                $q->where('user_id', '!=', $userId) // sender
                     ->whereDoesntHave('reads', function ($q) use ($userId) {
                         $q->where('user_id', $userId);
                     })

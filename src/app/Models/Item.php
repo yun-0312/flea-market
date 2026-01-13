@@ -64,9 +64,9 @@ class Item extends Model
     }
 
     //取引中の商品
-    public function scopeTradingForUser($query, $userId) {
+    public function scopeActiveForUser($query, $userId) {
         return $query->whereHas('purchase.transaction', function ($q) use ($userId) {
-            $q->where('status', 'trading')
+            $q->whereIn('status', ['trading', 'awaiting_review'])
             ->where(function ($q) use ($userId) {
                 $q->whereHas('purchase', function ($q) use ($userId) {
                     $q->where('user_id', $userId);

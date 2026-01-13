@@ -23,15 +23,15 @@ class ProfileController extends Controller
                 'id',
                 Purchase::where('user_id', $user->id)->pluck('item_id')
             )->get(),
-            'trading' => Item::tradingForUser($user->id)->get(),
+            'trading' => Item::activeForUser($user->id)->get(),
             default => collect(),
         };
-        $tradingTransactions = Transaction::tradingForUserWithUnreadCount($user->id)->get();
+        $tradingTransactions = Transaction::activeForUserWithUnreadCount($user->id)->get();
         $tradingUnreadCount = $tradingTransactions->sum('unread_count');
         $itemUnreadCounts = $tradingTransactions
             ->groupBy('purchase.item_id')
             ->map(fn ($txs) => $txs->sum('unread_count'));
-        $tradingTransactions = Transaction::tradingForUserWithUnreadCount($user->id)
+        $tradingTransactions = Transaction::activeForUserWithUnreadCount($user->id)
             ->with('purchase.item')
             ->get()
             ->keyBy(fn ($t) => $t->purchase->item_id);

@@ -11,16 +11,14 @@ use Illuminate\Support\Facades\Storage;
 class TransactionMessageController extends Controller
 {
     public function store (TransactionMessageRequest $request, Transaction $transaction) {
-        if (! $transaction->isParticipant(auth()->id())) {
+        if (! $transaction->isParticipant(auth()->id()) || $transaction->status !== 'trading') {
             abort(403);
         }
-
         $path = null;
         if ($request->hasFile('image')) {
             $storePath = $request->file('image')->store('public/images/transaction_messages');
             $path = basename($storePath);
         }
-
         TransactionMessage::create([
             'transaction_id' => $transaction->id,
             'user_id' => auth()->id(),

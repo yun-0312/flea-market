@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\Transaction;
 
 class TransactionController extends Controller
@@ -32,7 +31,7 @@ class TransactionController extends Controller
 
         $this->markAsRead($transaction, $user->id);
 
-        $sidebarTransactions = Transaction::tradingForUserWithUnreadCount($user->id)
+        $sidebarTransactions = Transaction::activeForUserWithUnreadCount($user->id)
             ->where('id', '!=', $transaction->id)
             ->with('purchase.item')
             ->get();
@@ -58,7 +57,7 @@ class TransactionController extends Controller
         $user = auth()->user();
         abort_unless($transaction->isBuyer($user), 403);
         $transaction->update([
-            'status' => 'completed',
+            'status' => 'awaiting_review',
         ]);
         return redirect()->route('transactions.show', $transaction);
     }
