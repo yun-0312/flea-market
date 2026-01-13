@@ -14,6 +14,9 @@
     {{ session('error') }}
 </p>
 @endif
+@if (session('reviwed'))
+<p class="success">評価を送信しました</p>
+@endif
 <div class="content__link">
     <a href="/?tab=recommend&keyword={{ request('keyword', '') }}" class="content-link__item {{ $tab === 'recommend' ? 'active' : '' }}">おすすめ</a>
     <a href="?tab=mylist&keyword={{ request('keyword', '') }}" class="content-link__item {{ $tab === 'mylist' ? 'active' : '' }}">マイリスト</a>

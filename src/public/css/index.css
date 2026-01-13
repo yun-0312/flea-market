@@ -3,10 +3,15 @@
     margin-left: 15px;
 }
 
+.success {
+    color: blue;
+    margin-left: 15px;
+}
+
 .content__link {
     height: 47px;
     margin: 46px 0;
-    border-bottom: 2px solid #5F5F5F;
+    border-bottom: 2px solid #5f5f5f;
 }
 
 .content-link__item {
@@ -14,7 +19,7 @@
     font-size: 24px;
     font-weight: 700;
     text-decoration: none;
-    color: #5F5F5F;
+    color: #5f5f5f;
     white-space: nowrap;
 }
 
@@ -23,7 +28,7 @@
 }
 
 .content-link__item.active {
-    color: #FF0000;
+    color: #ff0000;
 }
 
 .items {

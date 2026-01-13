@@ -20,7 +20,6 @@ class TransactionReviewController extends Controller
             'reviewer_id' => $user->id,
             'reviewee_id' => $transaction->partnerUser($user)->id,
             'rating' => $request->rating,
-            'comment' => $request->comment,
         ]);
         return redirect()->route('items.index')->with('reviwed', true);
     }

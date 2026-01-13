@@ -20,24 +20,31 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 520px;
-    background: #fffde8;
+    width: 598px;
+    height: 395px;
+    background: #FDFCE6;
     border-radius: 14px;
-    border: 1px solid #333;
+    border: 1px solid #000000;
     z-index: 1001;
     padding: 0;
+    pointer-events: auto;
 }
 
 .review-modal__title {
     padding: 16px;
-    font-size: 20px;
+    font-size: 35px;
     font-weight: bold;
-    border-bottom: 1px solid #333;
+    height: 88px;
+    line-height: 21px;
+    border-bottom: 1px solid #000000;
+    margin-bottom: 0;
 }
 
 .review-modal__text {
-    padding: 16px;
-    color: #777;
+    padding: 0 16px 0;
+    color: #868686;
+    font-size: 20px;
+    margin-bottom: 0;
 }
 
 /* 星エリア */
@@ -50,25 +57,25 @@
 }
 
 .star {
-    width: 60px;
-    height: 60px;
-    background: url("/images/star_gray.png") no-repeat center / contain;
+    width: 100px;
+    height: 100px;
+    background: url("/img/Star 9.png") no-repeat center / contain;
     border: none;
     cursor: pointer;
 }
 
 .star.is-active {
-    background-image: url("/images/star_yellow.png");
+    background-image: url("/img/Star 6.png");
 }
 
 /* 送信ボタン */
 .review-submit {
-    margin: 20px auto;
+    margin: 10px 16px 10px auto;
     display: block;
     padding: 10px 24px;
     background: #ff8a8a;
     border-radius: 6px;
     color: #fff;
     border: none;
-    font-weight: bold;
+    font-size: 24px;
 }

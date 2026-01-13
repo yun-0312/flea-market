@@ -105,7 +105,7 @@ Route::middleware(['auth', 'verified'])->group(function() {
 
     //取引チャット削除
     Route::delete('messages/{message}', [TransactionMessageController::class, 'destroy'])->name('transactions.messages.destroy');
-    
+
     //レビュー作成
     Route::post('/transactions/{transaction}/reviews', [TransactionReviewController::class, 'store'])->name('transactions.reviews.store');
 });
