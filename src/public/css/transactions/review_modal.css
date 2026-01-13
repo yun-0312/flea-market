@@ -19,74 +19,56 @@
     position: fixed;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%) scale(0.95);
-    width: 90%;
-    max-width: 420px;
-    background: #fff;
-    border-radius: 12px;
-    padding: 24px;
+    transform: translate(-50%, -50%);
+    width: 520px;
+    background: #fffde8;
+    border-radius: 14px;
+    border: 1px solid #333;
     z-index: 1001;
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.3s ease, transform 0.3s ease;
+    padding: 0;
 }
 
-.review-modal.is-active {
-    opacity: 1;
-    pointer-events: auto;
-    transform: translate(-50%, -50%) scale(1);
-}
-
-/* ===== タイトル ===== */
 .review-modal__title {
-    font-size: 18px;
+    padding: 16px;
+    font-size: 20px;
     font-weight: bold;
-    margin-bottom: 8px;
-    text-align: center;
+    border-bottom: 1px solid #333;
 }
 
 .review-modal__text {
-    text-align: center;
-    margin-bottom: 20px;
+    padding: 16px;
+    color: #777;
 }
 
-/* ===== 星評価 ===== */
+/* 星エリア */
 .review-stars {
     display: flex;
     justify-content: center;
-    gap: 8px;
-    margin-bottom: 20px;
+    gap: 14px;
+    padding: 20px 0;
+    border-bottom: 1px solid #333;
 }
 
-/* radio は非表示 */
-.review-stars input {
-    display: none;
-}
-
-/* 星（画像版） */
-.review-stars label {
-    width: 40px;
-    height: 40px;
-    background: url("/images/star_empty.png") no-repeat center / contain;
+.star {
+    width: 60px;
+    height: 60px;
+    background: url("/images/star_gray.png") no-repeat center / contain;
+    border: none;
     cursor: pointer;
 }
 
-/* チェックされた星とそれ以下を塗りつぶし */
-.review-stars input:checked ~ label,
-.review-stars label:hover,
-.review-stars label:hover ~ label {
-    background-image: url("/images/star_filled.png");
+.star.is-active {
+    background-image: url("/images/star_yellow.png");
 }
 
-/* ===== 送信ボタン ===== */
+/* 送信ボタン */
 .review-submit {
+    margin: 20px auto;
     display: block;
-    width: 100%;
-    padding: 10px;
-    background: #ff7a00;
+    padding: 10px 24px;
+    background: #ff8a8a;
+    border-radius: 6px;
     color: #fff;
     border: none;
-    border-radius: 6px;
     font-weight: bold;
-    cursor: pointer;
 }
