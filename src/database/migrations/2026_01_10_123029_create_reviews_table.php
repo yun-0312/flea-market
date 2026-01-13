@@ -19,7 +19,6 @@ class CreateReviewsTable extends Migration
             $table->foreignId('reviewer_id')->constrained('users');
             $table->foreignId('reviewee_id')->constrained('users');
             $table->tinyInteger('rating');
-            $table->text('comment')->nullable();
             $table->timestamps();
 
             $table->unique(['transaction_id', 'reviewer_id']);
