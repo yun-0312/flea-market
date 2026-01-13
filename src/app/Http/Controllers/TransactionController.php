@@ -60,6 +60,6 @@ class TransactionController extends Controller
         $transaction->update([
             'status' => 'completed',
         ]);
-        return redirect()->route('transactions', $transaction);
+        return redirect()->route('transactions.show', $transaction);
     }
 }

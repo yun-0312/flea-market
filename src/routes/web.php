@@ -11,6 +11,7 @@ use App\Http\Controllers\CommentController;
 use App\Http\Controllers\PurchaseController;
 use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\TransactionMessageController;
+use App\Http\Controllers\TransactionReviewController;
 
 /*
 |--------------------------------------------------------------------------
@@ -104,4 +105,7 @@ Route::middleware(['auth', 'verified'])->group(function() {
 
     //取引チャット削除
     Route::delete('messages/{message}', [TransactionMessageController::class, 'destroy'])->name('transactions.messages.destroy');
+    
+    //レビュー作成
+    Route::post('/transactions/{transaction}/reviews', [TransactionReviewController::class, 'store'])->name('transactions.reviews.store');
 });

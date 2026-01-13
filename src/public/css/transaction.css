@@ -62,7 +62,7 @@
     flex: 1;
 }
 
-.btn-danger {
+.complete__button {
     background: #ff7b7b;
     border: none;
     color: #fff;
@@ -198,7 +198,6 @@
     display: inline-flex;
     align-items: center;
     padding: 3px 10px;
-    border: 1px solid #999;
     border-radius: 6px;
     font-size: 13px;
     cursor: pointer;
@@ -228,7 +227,7 @@
 }
 
 /* =====================
-   メッセージ送信フォーム
+メッセージ送信フォーム
 ===================== */
 .create-form__wrap {
     position: sticky;

@@ -17,6 +17,10 @@ class Review extends Model
         'comment',
     ];
 
+    public function transaction() {
+        return $this->belongsTo(Transaction::class);
+    }
+
     public function reviewer() {
         return $this->belongsTo(User::class, 'reviewer_id');
     }

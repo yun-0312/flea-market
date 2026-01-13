@@ -2,6 +2,7 @@
 
 @section('css')
 <link rel="stylesheet" href="{{ asset('css/transaction.css') }}">
+<link rel="stylesheet" href="{{ asset('css/transactions/review_modal.css') }}">
 @endsection
 
 @section('header')
@@ -25,7 +26,7 @@
             @if ($transaction->isBuyer($user) && $transaction->status === 'trading')
                 <form method="POST" action="{{ route('transactions.complete', $transaction) }}">
                 @csrf
-                <button type="submit" class="btn btn-danger">
+                <button type="submit" class="complete__button">
                     取引を完了する
                 </button>
                 </form>
@@ -43,7 +44,7 @@
         <div class="message__wrap">
             @foreach ($messages as $message)
                 @if ($message->user_id !== $user->id)
-                    <div class="partner-message__wrap">
+                    <div class="partner-message__wrap"  id="message-{{ $message->id }}">
                         <div class="user-info">
                             <img src="{{ asset('storage/images/profiles/' . optional($partner->profile)->image_url) }}" class="user__icon">
                             <p class="user-info__name">{{ $transaction->partnerUser($user)->name }}</p>
@@ -53,7 +54,7 @@
                         </div>
                     </div>
                 @else
-                    <div class="user-message__wrap">
+                    <div class="user-message__wrap" id="message-{{ $message->id }}">
                         <div class="user-info">
                             <p class="user-info__name">{{ $user->name }}</p>
                             <img src="{{ asset('storage/images/profiles/' . optional($user->profile)->image_url) }}" class="user__icon">
@@ -72,7 +73,7 @@
                                 <textarea name="message" class="message-form__textarea" rows="1" oninput="autoResize(this)">{{ old('message', $message->message) }}</textarea>
                                 <div class="update-image__container">
                                     <label class="update-image__button">
-                                        画像を変更
+                                        ＋
                                         <input type="file" name="image" hidden>
                                     </label>
                                     @if ($message->image_url)
@@ -122,6 +123,12 @@
         </div>
     </div>
 </div>
+@if (
+    $transaction->status === 'completed' &&
+    ! $transaction->hasReviewed(auth()->user())
+)
+@include('transactions.review_modal')
+@endif
 <script>
 function autoResize(textarea) {
     textarea.style.height = 'auto';
@@ -130,6 +137,24 @@ function autoResize(textarea) {
 
 document.querySelectorAll('.message-form__textarea').forEach(t => {
     autoResize(t);
+});
+
+window.onload = () => {
+    const targetId = "{{ session('updated_message_id') }}";
+    const el = document.getElementById(`message-${targetId}`);
+    if (el) {
+        el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+};
+
+document.addEventListener('DOMContentLoaded', () => {
+    const modal = document.getElementById('review-modal');
+    const overlay = document.getElementById('modal-overlay');
+
+    if (modal && overlay) {
+        overlay.classList.add('is-active');
+        modal.classList.add('is-active');
+    }
 });
 </script>
 @endsection

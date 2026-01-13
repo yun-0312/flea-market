@@ -30,6 +30,12 @@ class Transaction extends Model
         return $this->hasMany(Review::class);
     }
 
+    public function hasReviewed(User $user) {
+        return $this->reviews()
+            ->where('reviewer_id', $user->id)
+            ->exists();
+    }
+
     public function scopeTradingForUserWithUnreadCount($query, int $userId)
     {
         return $query
