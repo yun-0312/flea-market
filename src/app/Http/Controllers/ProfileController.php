@@ -23,7 +23,7 @@ class ProfileController extends Controller
                 'id',
                 Purchase::where('user_id', $user->id)->pluck('item_id')
             )->get(),
-            'trading' => Item::activeForUser($user->id)->get(),
+            'trading' => Item::tradingAndAwaitingForUser($user->id)->get(),
             default => collect(),
         };
         $tradingTransactions = Transaction::activeForUserWithUnreadCount($user->id)->get();

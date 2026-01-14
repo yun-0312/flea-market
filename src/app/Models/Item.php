@@ -64,17 +64,26 @@ class Item extends Model
     }
 
     //取引中の商品
-    public function scopeActiveForUser($query, $userId) {
+    public function scopeTradingForUser($query, $userId)
+    {
+        return $query->whereHas('purchase.transaction', function ($q) use ($userId) {
+            $q->where('status', 'trading')
+                ->where(function ($q) use ($userId) {
+                    $q->whereHas('purchase', fn ($q) => $q->where('user_id', $userId))
+                        ->orWhereHas('purchase.item', fn ($q) => $q->where('user_id', $userId));
+            });
+        });
+    }
+
+    // 評価待ち（購入者・出品者共通）
+    public function scopeTradingAndAwaitingForUser($query, int $userId)
+    {
         return $query->whereHas('purchase.transaction', function ($q) use ($userId) {
             $q->whereIn('status', ['trading', 'awaiting_review'])
-            ->where(function ($q) use ($userId) {
-                $q->whereHas('purchase', function ($q) use ($userId) {
-                    $q->where('user_id', $userId);
-                })
-                ->orWhereHas('purchase.item', function ($q) use ($userId) {
-                    $q->where('user_id', $userId);
+                ->where(function ($q) use ($userId) {
+                    $q->whereHas('purchase', fn ($q) => $q->where('user_id', $userId))
+                        ->orWhereHas('purchase.item', fn ($q) => $q->where('user_id', $userId));
                 });
-            });
         });
     }
 }

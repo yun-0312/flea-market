@@ -1,4 +1,4 @@
-.modal-overlay {
+.awaiting__modal-overlay {
     position: fixed;
     inset: 0;
     background: rgba(0, 0, 0, 0.6);
@@ -8,12 +8,12 @@
     transition: opacity 0.3s ease;
 }
 
-.modal-overlay.is-active {
+.awaiting__modal-overlay.is-active {
     opacity: 1;
     pointer-events: auto;
 }
 
-.review-modal {
+.awaiting-review-modal {
     position: fixed;
     top: 50%;
     left: 50%;
@@ -28,7 +28,7 @@
     pointer-events: auto;
 }
 
-.review-modal__title {
+.awaiting-review-modal__title {
     padding: 16px;
     font-size: 35px;
     font-weight: bold;
@@ -38,40 +38,22 @@
     margin-bottom: 0;
 }
 
-.review-modal__text {
+.awaiting-review-modal__text {
     padding: 0 16px 0;
     color: #868686;
     font-size: 20px;
     margin-bottom: 0;
 }
 
-.review-stars {
-    display: flex;
-    justify-content: center;
-    gap: 14px;
-    padding: 20px 0;
-    border-bottom: 1px solid #333;
-}
-
-.star {
-    width: 100px;
-    height: 100px;
-    background: url("/img/Star 9.png") no-repeat center / contain;
-    border: none;
-    cursor: pointer;
-}
-
-.star.is-active {
-    background-image: url("/img/Star 6.png");
-}
-
-.review-submit {
-    margin: 10px 16px 10px auto;
-    display: block;
-    padding: 10px 24px;
-    background: #ff8a8a;
-    border-radius: 6px;
+.awaiting-review-modal__link {
+    position: absolute;
+    right: 16px;
+    bottom: 16px;
+    display: inline-block;
+    padding: 10px 20px;
+    background: #000;
     color: #fff;
-    border: none;
-    font-size: 24px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-size: 18px;
 }

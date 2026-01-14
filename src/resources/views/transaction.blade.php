@@ -3,6 +3,7 @@
 @section('css')
 <link rel="stylesheet" href="{{ asset('css/transaction.css') }}">
 <link rel="stylesheet" href="{{ asset('css/transactions/review_modal.css') }}">
+<link rel="stylesheet" href="{{ asset('css/transactions/awaiting_seller_review_modal.css') }}">
 @endsection
 
 @section('header')
@@ -123,11 +124,12 @@
         </div>
     </div>
 </div>
-@if (
-    $transaction->status === 'awaiting_review' &&
-    ! $transaction->hasReviewed(auth()->user())
-)
-@include('transactions.review_modal')
+@if ($transaction->status === 'awaiting_review')
+    @if (! $transaction->hasReviewed(auth()->user()))
+        @include('transactions.review_modal')
+    @else
+        @include('transactions.awaiting_seller_review_modal')
+    @endif
 @endif
 <script>
 function autoResize(textarea) {
