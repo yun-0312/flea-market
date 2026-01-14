@@ -15,7 +15,7 @@ class ProfileController extends Controller
 {
     public function show (Request $request) {
         $page = $request->query('page', 'sell');
-        $user = auth()->user();
+        $user = auth()->user()->load('receivedReviews');
         $profile = $user->profile;
         $items = match ($page) {
             'sell' => Item::where('user_id', $user->id)->get(),

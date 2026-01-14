@@ -24,9 +24,24 @@
             <div class="mypage__image-placeholder"></div>
             @endif
         </div>
-        <div class="mypage__user-name">{{ $user->name }}</div>
+        <div class="mypage__user-info">
+            <div class="mypage__user-name">{{ $user->name }}</div>
+            @if ($user->average_rating !== null)
+                <div class="profile-rating">
+                    @for ($i = 1; $i <= 5; $i++)
+                        <img
+                            src="{{ asset($i <= $user->average_rating
+                                ? 'img/Star 1.png'
+                                : 'img/Star 4.png') }}"
+                            class="profile-rating__star"
+                            alt="rating__star">
+                    @endfor
+                </div>
+            @endif
+            </div>
+        </div>
+        <a href="{{ route('profile.edit') }}" class="edit-profile__link">プロフィールを編集</a>
     </div>
-    <a href="{{ route('profile.edit') }}" class="edit-profile__link">プロフィールを編集</a>
 </div>
 <div class="content__link">
     <a href="{{ route('mypage.show', ['page' => 'sell']) }}" class="content-link__item {{ $page === 'sell' ? 'active' : '' }}">出品した商品</a>

@@ -71,7 +71,7 @@
                             <form id="update-{{ $message->id }}" method="POST" action="{{ route('transactions.messages.update', $message) }}" enctype="multipart/form-data" class="message-form">
                                 @csrf
                                 @method('PUT')
-                                <textarea name="message" class="message-form__textarea" rows="1" oninput="autoResize(this)">{{ old('message', $message->message) }}</textarea>
+                                <textarea name="messages[{{ $message->id }}]" class="message-form__textarea" rows="1" oninput="autoResize(this)">{{ old('messages.$message->id', $message->message) }}</textarea>
                                 <div class="update-image__container">
                                     <label class="update-image__button">
                                         ＋
@@ -91,12 +91,12 @@
                         </div>
                         <div class="message-actions">
                             <button class="message-form__button" form="update-{{ $message->id }}">編集</button>
-                            <form method="POST" action="{{ route('transactions.messages.destroy', $message) }}" class="message-form">
-                                @csrf
-                                @method('DELETE')
-                                <button class="message-form__button">削除</button>
-                            </form>
+                            <button class="message-form__button" form="delete-{{ $message->id }}">削除</button>
                         </div>
+                        <form id="delete-{{ $message->id }}" method="POST" action="{{ route('transactions.messages.destroy', $message) }}" class="message-form message-form__delete">
+                            @csrf
+                            @method('DELETE')
+                        </form>
                     </div>
                 @endif
             @endforeach
@@ -114,7 +114,7 @@
                 enctype="multipart/form-data"
                 class="message-form__create">
                 @csrf
-                <input type="text" name="message" class="message-form__create-input" placeholder="取引メッセージを記入してください">
+                <input type="text" id="transaction-message-create" name="new_message" class="message-form__create-input" placeholder="取引メッセージを記入してください" value="{{ old('new_message') }}">
                 <label class="image-upload">
                     画像を追加
                     <input type="file" name="image" hidden>
@@ -132,48 +132,11 @@
     @endif
 @endif
 <script>
-function autoResize(textarea) {
-    textarea.style.height = 'auto';
-    textarea.style.height = textarea.scrollHeight + 'px';
-}
-
-document.querySelectorAll('.message-form__textarea').forEach(t => {
-    autoResize(t);
-});
-
-window.onload = () => {
-    const targetId = "{{ session('updated_message_id') }}";
-    const el = document.getElementById(`message-${targetId}`);
-    if (el) {
-        el.scrollIntoView({ behavior: 'smooth', block: 'center' });
-    }
+window.transactionConfig = {
+    updatedMessageId: @json(session('updated_message_id')),
 };
-
-document.addEventListener('DOMContentLoaded', () => {
-    const modal = document.getElementById('review-modal');
-    const overlay = document.getElementById('modal-overlay');
-
-    if (modal && overlay) {
-        overlay.classList.add('is-active');
-        modal.classList.add('is-active');
-    }
-});
-
-document.addEventListener('DOMContentLoaded', () => {
-    const stars = document.querySelectorAll('.star');
-    const ratingInput = document.getElementById('rating-value');
-
-    stars.forEach(star => {
-        star.addEventListener('click', () => {
-            const value = Number(star.dataset.value);
-            ratingInput.value = value;
-
-            stars.forEach(s => {
-                const starValue = Number(s.dataset.value);
-                s.classList.toggle('is-active', starValue <= value);
-            });
-        });
-    });
-});
 </script>
+<script src="{{ asset('js/transactions/message.js') }}" defer></script>
+<script src="{{ asset('js/transactions/review-modal.js') }}"></script>
+<script src="{{ asset('js/transactions/draft-storage.js') }}"></script>
 @endsection

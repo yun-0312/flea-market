@@ -22,7 +22,7 @@ class TransactionMessageController extends Controller
         TransactionMessage::create([
             'transaction_id' => $transaction->id,
             'user_id' => auth()->id(),
-            'message' => $request->message,
+            'message' => $request->new_message,
             'image_url' => $path,
         ]);
         return back();
@@ -32,7 +32,7 @@ class TransactionMessageController extends Controller
         if ($message->user_id !== auth()->id()) {
             abort(403);
         }
-        $message->message = $request->message;
+        $message->message = $request->input("messages.$message->id");
         if ($request->hasFile('image')) {
             if ($message->image_url) {
                 Storage::disk('public')->delete(
