@@ -15,7 +15,7 @@
 </p>
 @endif
 @if (session('reviewed'))
-<p class="success">評価を送信しました</p>
+<p class="success-message">評価を送信しました</p>
 @endif
 <div class="content__link">
     <a href="/?tab=recommend&keyword={{ request('keyword', '') }}" class="content-link__item {{ $tab === 'recommend' ? 'active' : '' }}">おすすめ</a>

@@ -4,13 +4,15 @@ namespace App\Mail;
 
 use Illuminate\Mail\Mailable;
 use App\Models\Transaction;
+use Illuminate\Bus\Queueable;
+use Illuminate\Queue\SerializesModels;
 
 class SellerReviewRequestMail extends Mailable
 {
 
+    use Queueable, SerializesModels;
+
     public Transaction $transaction;
-    public $seller;
-    public $item;
     /**
      * Create a new message instance.
      *
@@ -31,6 +33,11 @@ class SellerReviewRequestMail extends Mailable
     public function build()
     {
         return $this->subject('購入者からの取引完了の連絡があります')
-            ->view('emails.seller_review_request');
+            ->view('emails.seller_review_request')
+            ->with([
+                'transaction' => $this->transaction,
+                'seller'      => $this->transaction->seller,
+                'item'        => $this->transaction->purchase->item,
+            ]);
     }
 }

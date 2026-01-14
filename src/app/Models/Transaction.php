@@ -41,6 +41,11 @@ class Transaction extends Model
         return $this->purchase?->item?->user;
     }
 
+    public function getItemAttribute()
+    {
+        return $this->purchase?->item;
+    }
+
     public function hasReviewed(User $user): bool {
         return $this->reviews()
             ->where('reviewer_id', $user->id)
@@ -73,6 +78,9 @@ class Transaction extends Model
     }
 
     public function isParticipant (int $userId) : bool {
+        if (! $this->purchase || ! $this->purchase->item) {
+            return false;
+        }
         return $this->purchase->user_id === $userId
             || $this->purchase->item->user_id === $userId;
     }
@@ -82,9 +90,11 @@ class Transaction extends Model
     }
 
     public function partnerUser(User $user): User {
-        if ($this->purchase->user_id === $user->id) {
-            return $this->purchase->item->user;
+        if (! $this->purchase || ! $this->purchase->item) {
+            return null;
         }
-        return $this->purchase->user;
+        return $this->purchase->user_id === $user->idate
+            ? $this->purchase->item->user
+            : $this->purchase->user;
     }
 }
