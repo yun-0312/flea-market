@@ -19,7 +19,7 @@ class UpdateTransactionMessageRequest extends FormRequest
         return true;
     }
 
-    protected $errorBag = 'updateMessage';
+    public $errorBag = 'updateMessage';
 
     protected function failedValidation(Validator $validator)
     {
@@ -40,7 +40,7 @@ class UpdateTransactionMessageRequest extends FormRequest
     public function rules()
     {
         return [
-            'messages.*' => 'required|max:400',
+            'message' => 'required|max:400',
             'image' => 'nullable|file|mimes:jpeg,png|max:2048',
         ];
     }
@@ -48,8 +48,8 @@ class UpdateTransactionMessageRequest extends FormRequest
     public function messages()
     {
         return [
-            'messages.*.required' => '本文を入力してください',
-            'messages.*.max' => '本文は400文字以内で入力してください',
+            'message.required' => '本文を入力してください',
+            'message.max' => '本文は400文字以内で入力してください',
             'image.mimes' => '「.png」または「.jpeg」形式でアップロードしてください',
             'image.max' => 'アップロード可能なファイルのサイズは2MB以内です',
         ];

@@ -11,7 +11,6 @@ class TransactionController extends Controller
         if (! $transaction->isParticipant($user->id)) {
             abort(403);
         }
-
         $transaction->load([
             'purchase.user',
             'purchase.user.profile',
@@ -21,21 +20,16 @@ class TransactionController extends Controller
             'messages.sender',
             'messages.sender.profile',
         ]);
-
         $partner = $transaction->partnerUser($user);
-
         $messages = $transaction->messages()
             ->whereNull('deleted_at')
             ->oldest()
             ->get();
-
         $this->markAsRead($transaction, $user->id);
-
         $sidebarTransactions = Transaction::activeForUserWithUnreadCount($user->id)
             ->where('id', '!=', $transaction->id)
             ->with('purchase.item')
             ->get();
-
         return view('transaction', compact('user', 'partner', 'transaction', 'messages', 'sidebarTransactions'));
     }
 
@@ -44,7 +38,6 @@ class TransactionController extends Controller
             ->where('user_id', '!=', $userId)
             ->whereDoesntHave('reads', fn ($q) => $q->where('user_id', $userId))
             ->get();
-
         foreach ($unreadMessages as $message) {
             $message->reads()->create([
                 'user_id' => $userId,

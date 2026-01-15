@@ -108,7 +108,6 @@
     padding: 10px;
     height: calc(100vh - 200px);
     overflow-y: auto;
-
 }
 
 .partner-message__wrap .message-content {
@@ -127,20 +126,21 @@
 .user-message__wrap {
     display: flex;
     flex-direction: column;
+    align-items: flex-end;
     margin-bottom: 25px;
-    max-width: 80%;
+    max-width: 60%;
     margin-left: auto;
-    width: auto; 
+    width: 70%;
+    margin-left: auto;
 }
 
 .user-message__wrap .message-content {
     display: block;
-    max-width: 75%;
+    max-width: 100%;
     width: auto;
     margin-left: auto;
     align-items: flex-end;
 }
-
 
 .user__icon {
     width: 60px;
@@ -173,10 +173,15 @@
     border-radius: 10px;
     margin-top: 6px;
     border: 1px solid #ddd;
+    display: none;
 }
 
-/* 編集フォーム内のtextarea */
-.edit-form textarea {
+.edit-form.is-open {
+    display: block;
+}
+
+.edit-form__textarea {
+    min-height: 60px;
     width: 100%;
     border: none;
     background: #fff;
@@ -192,7 +197,6 @@
     background: #f0f0f0;
 }
 
-/* ===== 編集・削除 ===== */
 .message-actions {
     margin-top: 4px;
     display: flex;
@@ -230,7 +234,6 @@
     text-decoration: underline;
 }
 
-/* ===== 画像操作UI ===== */
 .message-image-controls {
     display: flex;
     gap: 12px;
@@ -238,7 +241,6 @@
     align-items: center;
 }
 
-/* 画像変更ボタン */
 .update-image__button {
     display: inline-flex;
     align-items: center;
@@ -253,7 +255,6 @@
     background: #eaeaea;
 }
 
-/* 画像削除チェック */
 .remove-image {
     font-size: 12px;
     color: #c0392b;
@@ -264,16 +265,12 @@
     margin-right: 4px;
 }
 
-/* メッセージ画像 */
 .message-image {
     margin-top: 8px;
     max-width: 220px;
     border-radius: 3px;
 }
 
-/* =====================
-メッセージ送信フォーム
-===================== */
 .create-form__wrap {
     position: sticky;
     bottom: 0;
@@ -343,4 +340,116 @@
     color: red;
     margin: 0;
     font-size: 14px;
+}
+
+.hamburger {
+    display: none;
+    position: absolute;
+    right: 20px;
+    top: 4%;
+    transform: translateY(-50%);
+    font-size: 28px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    z-index: 1000;
+    color: #ffffff;
+}
+
+
+@media (max-width: 1400px) {
+    .main-content__header {
+        font-size: 20px;
+    }
+
+    .item-name {
+        font-size: 30px;
+    }
+
+    .item-price {
+        font-size: 22px;
+    }
+
+    .create-form__input {
+        font-size: 16px;
+        font-weight: 400;
+        min-height: 30px;
+        margin-bottom: 3px;
+    }
+
+    .create-form__actions {
+        gap: 4px;
+    }
+
+    .image-upload {
+        font-size: 14px;
+        width: 100px;
+        height: 34px;
+        margin-left: 3px;
+        line-height: 28px;
+    }
+
+    .create__button {
+        width: 40px;
+        height: 32px;
+        background-image: url("/img/input_button.png");
+        margin-bottom: 2px;
+    }
+}
+
+@media (max-width: 850px) {
+    .sidebar {
+        display: none;
+    }
+
+    .hamburger {
+        display: block;
+        right: 20px;
+        font-size: 28px;
+    }
+
+    .sidebar.open {
+        display: block;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 260px;
+        height: 100vh;
+        z-index: 999;
+    }
+
+    .main-content {
+        width: 100%;
+        margin-left: 0;
+    }
+
+    .main-content__header {
+        font-size: 18px;
+    }
+
+    .item-name {
+        font-size: 20px;
+        white-space: nowrap;
+    }
+
+    .item-price {
+        font-size: 16px;
+    }
+
+    .create-form__input {
+        font-size: 16px;
+        font-weight: 400;
+        min-height: 30px;
+        margin-bottom: 3px;
+    }
+
+    .create-form__input {
+        font-size: 14px;
+    }
+}
+
+@media (max-width: 767px) {
+    .hamburger {
+        right: 10px;
+    }
 }

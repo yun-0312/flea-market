@@ -34,7 +34,7 @@ class TransactionMessageController extends Controller
         if ($message->user_id !== auth()->id()) {
             abort(403);
         }
-        $message->message = $request->input("messages.$message->id");
+        $message->message = $request->message;
         if ($request->hasFile('image')) {
             if ($message->image_url) {
                 Storage::disk('public')->delete(
@@ -52,7 +52,7 @@ class TransactionMessageController extends Controller
             }
         }
         $message->save();
-        return back()->with('updated_message_id', $message->id);
+        return back();
     }
 
     public function destroy(TransactionMessage $message) {

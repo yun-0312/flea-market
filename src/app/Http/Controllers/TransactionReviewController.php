@@ -12,7 +12,6 @@ class TransactionReviewController extends Controller
 {
     public function store (ReviewRequest $request, Transaction $transaction) {
         $user = auth()->user();
-
         if ($transaction->hasReviewed($user)) {
             abort(403);
         }
@@ -26,9 +25,7 @@ class TransactionReviewController extends Controller
             Mail::to($transaction->seller->email)
                 ->send(new SellerReviewRequestMail($transaction));
         }
-        // 両者評価完了チェック
         $reviewerIds = $transaction->reviews()->pluck('reviewer_id');
-
         if (
             $reviewerIds->contains($transaction->buyer->id) &&
             $reviewerIds->contains($transaction->seller->id)

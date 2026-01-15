@@ -78,6 +78,13 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
+    // エラーがない場合は全ての編集フォームを閉じる
+    if (!window.transactionConfig?.updatedMessageId) {
+        document.querySelectorAll(".edit-form").forEach((form) => {
+            form.style.display = "none";
+        });
+    }
+
     // ----------------------------------------
     // 新規メッセージ追加後のスクロール
     // ----------------------------------------
@@ -87,5 +94,17 @@ document.addEventListener("DOMContentLoaded", () => {
         if (el) {
             el.scrollIntoView({ behavior: "smooth", block: "center" });
         }
+    }
+
+    // ----------------------------------------
+    // ハンバーガーメニュー（サイドバー開閉）
+    // ----------------------------------------
+    const hamburger = document.querySelector(".hamburger");
+    const sidebar = document.querySelector(".sidebar");
+
+    if (hamburger && sidebar) {
+        hamburger.addEventListener("click", () => {
+            sidebar.classList.toggle("open");
+        });
     }
 });

@@ -25,12 +25,12 @@
             <img src="{{ asset('storage/images/items/' . $item['image_url']) }}" alt="商品画像" class="item__image">
         </div>
         <div class="item__text-detail">
-            <h2 class="item__name">
+            <h1 class="item__name">
                 {{ $item['name'] }}
                 @if ($item->is_sold)
                 <span class="sold__label">Sold</span>
                 @endif
-            </h2>
+            </h1>
             <p class="item__brand">
                 {{ empty($item['brand']) || $item['brand'] === 'なし' ? 'ブランド名なし' : $item['brand'] }}
             </p>

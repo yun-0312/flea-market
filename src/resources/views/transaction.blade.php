@@ -13,7 +13,7 @@
 @section('content')
 <div class="content-wrapper">
     <div class="sidebar">
-        <h2 class="sidebar__header">その他の取引</h2>
+        <h3 class="sidebar__header">その他の取引</h3>
         @foreach ($sidebarTransactions as $sidebarTransaction)
             <a href="{{ route('transactions.show', $sidebarTransaction) }}" class="transaction__link {{ $sidebarTransaction->id === $transaction->id ? 'active' : '' }}">{{ $sidebarTransaction->purchase->item->name }}</a>
         @endforeach
@@ -45,7 +45,6 @@
         <div class="message__wrap">
             @foreach ($messages as $message)
                 @if ($message->user_id !== $user->id)
-                    {{-- 相手側メッセージ --}}
                     <div class="partner-message__wrap" id="message-{{ $message->id }}">
                         <div class="user-info">
                             <img src="{{ asset('storage/images/profiles/' . optional($partner->profile)->image_url) }}" class="user__icon">
@@ -55,45 +54,40 @@
                         <div class="message-content">
                             {{ $message->message }}
                         </div>
-
                         @if ($message->image_url)
                             <img src="{{ asset('storage/images/transaction_messages/' . $message->image_url) }}" class="message-image">
                         @endif
                     </div>
-
                 @else
-                    {{-- 自分側メッセージ --}}
                     <div class="user-message__wrap" id="message-{{ $message->id }}">
                         <div class="user-info">
                             <p class="user-info__name">{{ $user->name }}</p>
                             <img src="{{ asset('storage/images/profiles/' . optional($user->profile)->image_url) }}" class="user__icon">
                         </div>
-
-                        {{-- 通常表示（吹き出し） --}}
                         <div class="message-content">
                             {{ $message->message }}
                         </div>
-
                         @if ($message->image_url)
                             <img src="{{ asset('storage/images/transaction_messages/' . $message->image_url) }}" class="message-image">
                         @endif
-
-                        {{-- 編集・削除ボタン --}}
                         <div class="message-actions">
                             <button class="message-form__button edit-toggle" data-id="{{ $message->id }}">編集</button>
                             <button class="message-form__button" form="delete-{{ $message->id }}">削除</button>
                         </div>
-
-                        {{-- 編集フォーム（最初は非表示） --}}
-                        <div class="edit-form" id="edit-form-{{ $message->id }}" style="display:none;">
-                            <form method="POST" action="{{ route('transactions.messages.update', $message) }}" enctype="multipart/form-data">
+                        <div class="edit-form {{ session('updated_message_id') == $message->id && $errors->updateMessage->any() ? 'is-open' : '' }}" id="edit-form-{{ $message->id }}">
+                            @if (session('updated_message_id') === $message->id && $errors->updateMessage->any())
+                                <div class="message-error">
+                                    @foreach ($errors->updateMessage->all() as $error)
+                                        <p class="form__error-message">{{ $error }}</p>
+                                    @endforeach
+                                </div>
+                            @endif
+                            <form id="update-{{ $message->id }}" method="POST" action="{{ route('transactions.messages.update', $message) }}" enctype="multipart/form-data" class="message-form">
                                 @csrf
                                 @method('PUT')
-
-                                <textarea name="messages[{{ $message->id }}]"
-                                        class="message-form__textarea auto-resize"
-                                        rows="1">{{ old("messages.$message->id", $message->message) }}</textarea>
-
+                                <textarea name="message"
+                                        class="edit-form__textarea auto-resize"
+                                        rows="1">{{ old('message', $message->message) }}</textarea>
                                 <div class="update-image__container">
                                     <label class="update-image__button">
                                         ＋
@@ -107,18 +101,15 @@
                                         </label>
                                     @endif
                                 </div>
-
                                 @if ($message->image_url)
                                     <img src="{{ asset('storage/images/transaction_messages/' . $message->image_url) }}" class="message-image">
                                 @endif
-
                                 <div class="edit-actions">
                                     <button type="submit" class="message-form__button">保存</button>
                                     <button type="button" class="message-form__button cancel-edit" data-id="{{ $message->id }}">キャンセル</button>
                                 </div>
                             </form>
                         </div>
-
                         {{-- 削除フォーム --}}
                         <form id="delete-{{ $message->id }}" method="POST" action="{{ route('transactions.messages.destroy', $message) }}">
                             @csrf
@@ -128,7 +119,6 @@
                 @endif
             @endforeach
         </div>
-
         <div class="create-form__wrap">
             @if (! session()->has('updated_message_id') && $errors->default->any())
             <div class="form__error">
