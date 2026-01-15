@@ -19,13 +19,15 @@ class TransactionMessageController extends Controller
             $storePath = $request->file('image')->store('public/images/transaction_messages');
             $path = basename($storePath);
         }
-        TransactionMessage::create([
+        $message = TransactionMessage::create([
             'transaction_id' => $transaction->id,
             'user_id' => auth()->id(),
             'message' => $request->new_message,
             'image_url' => $path,
         ]);
-        return back();
+        return redirect()
+            ->route('transactions.show', $transaction)
+            ->with('lastMessageId', $message->id);
     }
 
     public function update(UpdateTransactionMessageRequest $request, TransactionMessage $message) {

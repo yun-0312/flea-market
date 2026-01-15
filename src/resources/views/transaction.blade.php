@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('css')
-<link rel="stylesheet" href="{{ asset('css/transaction.css') }}">
+<link rel="stylesheet" href="{{ asset('css/transactions/transaction.css') }}">
 <link rel="stylesheet" href="{{ asset('css/transactions/review_modal.css') }}">
 <link rel="stylesheet" href="{{ asset('css/transactions/awaiting_seller_review_modal.css') }}">
 @endsection
@@ -45,38 +45,61 @@
         <div class="message__wrap">
             @foreach ($messages as $message)
                 @if ($message->user_id !== $user->id)
-                    <div class="partner-message__wrap"  id="message-{{ $message->id }}">
+                    {{-- 相手側メッセージ --}}
+                    <div class="partner-message__wrap" id="message-{{ $message->id }}">
                         <div class="user-info">
                             <img src="{{ asset('storage/images/profiles/' . optional($partner->profile)->image_url) }}" class="user__icon">
                             <p class="user-info__name">{{ $transaction->partnerUser($user)->name }}</p>
                         </div>
+
                         <div class="message-content">
                             {{ $message->message }}
                         </div>
+
+                        @if ($message->image_url)
+                            <img src="{{ asset('storage/images/transaction_messages/' . $message->image_url) }}" class="message-image">
+                        @endif
                     </div>
+
                 @else
+                    {{-- 自分側メッセージ --}}
                     <div class="user-message__wrap" id="message-{{ $message->id }}">
                         <div class="user-info">
                             <p class="user-info__name">{{ $user->name }}</p>
                             <img src="{{ asset('storage/images/profiles/' . optional($user->profile)->image_url) }}" class="user__icon">
                         </div>
-                        @if (session('updated_message_id') === $message->id && $errors->updateMessage->any())
-                            <div class="message-error">
-                                @foreach ($errors->updateMessage->all() as $error)
-                                    <p class="form__error-message">{{ $error }}</p>
-                                @endforeach
-                            </div>
-                        @endif
+
+                        {{-- 通常表示（吹き出し） --}}
                         <div class="message-content">
-                            <form id="update-{{ $message->id }}" method="POST" action="{{ route('transactions.messages.update', $message) }}" enctype="multipart/form-data" class="message-form">
+                            {{ $message->message }}
+                        </div>
+
+                        @if ($message->image_url)
+                            <img src="{{ asset('storage/images/transaction_messages/' . $message->image_url) }}" class="message-image">
+                        @endif
+
+                        {{-- 編集・削除ボタン --}}
+                        <div class="message-actions">
+                            <button class="message-form__button edit-toggle" data-id="{{ $message->id }}">編集</button>
+                            <button class="message-form__button" form="delete-{{ $message->id }}">削除</button>
+                        </div>
+
+                        {{-- 編集フォーム（最初は非表示） --}}
+                        <div class="edit-form" id="edit-form-{{ $message->id }}" style="display:none;">
+                            <form method="POST" action="{{ route('transactions.messages.update', $message) }}" enctype="multipart/form-data">
                                 @csrf
                                 @method('PUT')
-                                <textarea name="messages[{{ $message->id }}]" class="message-form__textarea" rows="1" oninput="autoResize(this)">{{ old('messages.$message->id', $message->message) }}</textarea>
+
+                                <textarea name="messages[{{ $message->id }}]"
+                                        class="message-form__textarea auto-resize"
+                                        rows="1">{{ old("messages.$message->id", $message->message) }}</textarea>
+
                                 <div class="update-image__container">
                                     <label class="update-image__button">
                                         ＋
                                         <input type="file" name="image" hidden>
                                     </label>
+
                                     @if ($message->image_url)
                                         <label class="remove-image">
                                             <input type="checkbox" name="remove_image" value="1">
@@ -84,16 +107,20 @@
                                         </label>
                                     @endif
                                 </div>
+
                                 @if ($message->image_url)
-                                    <img src="{{ asset('storage/images/transaction_messages/' . $message->image_url) }}" alt="メッセージ画像" class="message-image">
+                                    <img src="{{ asset('storage/images/transaction_messages/' . $message->image_url) }}" class="message-image">
                                 @endif
+
+                                <div class="edit-actions">
+                                    <button type="submit" class="message-form__button">保存</button>
+                                    <button type="button" class="message-form__button cancel-edit" data-id="{{ $message->id }}">キャンセル</button>
+                                </div>
                             </form>
                         </div>
-                        <div class="message-actions">
-                            <button class="message-form__button" form="update-{{ $message->id }}">編集</button>
-                            <button class="message-form__button" form="delete-{{ $message->id }}">削除</button>
-                        </div>
-                        <form id="delete-{{ $message->id }}" method="POST" action="{{ route('transactions.messages.destroy', $message) }}" class="message-form message-form__delete">
+
+                        {{-- 削除フォーム --}}
+                        <form id="delete-{{ $message->id }}" method="POST" action="{{ route('transactions.messages.destroy', $message) }}">
                             @csrf
                             @method('DELETE')
                         </form>
@@ -101,6 +128,7 @@
                 @endif
             @endforeach
         </div>
+
         <div class="create-form__wrap">
             @if (! session()->has('updated_message_id') && $errors->default->any())
             <div class="form__error">
@@ -114,12 +142,14 @@
                 enctype="multipart/form-data"
                 class="message-form__create">
                 @csrf
-                <input type="text" id="transaction-message-create" name="new_message" class="message-form__create-input" placeholder="取引メッセージを記入してください" value="{{ old('new_message') }}">
-                <label class="image-upload">
-                    画像を追加
-                    <input type="file" name="image" hidden>
-                </label>
-                <button type="submit" class="create__button"></button>
+                <textarea id="transaction-message-create" name="new_message" class="create-form__input  auto-resize" placeholder="取引メッセージを記入してください">{{ old('new_message') }}</textarea>
+                <div class="create-form__actions">
+                    <label class="image-upload">
+                        画像を追加
+                        <input type="file" name="image" hidden>
+                    </label>
+                    <button type="submit" class="create__button"></button>
+                </div>
             </form>
         </div>
     </div>
@@ -134,7 +164,10 @@
 <script>
 window.transactionConfig = {
     updatedMessageId: @json(session('updated_message_id')),
+    lastMessageId: @json(session('lastMessageId')),
+
 };
+window.transactionId = {{ $transaction->id }};
 </script>
 <script src="{{ asset('js/transactions/message.js') }}" defer></script>
 <script src="{{ asset('js/transactions/review-modal.js') }}"></script>
