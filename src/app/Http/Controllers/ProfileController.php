@@ -8,6 +8,7 @@ use App\Models\Profile;
 use App\Models\Item;
 use App\Models\Purchase;
 use App\Models\Transaction;
+use App\Models\TransactionMessage;
 use App\Http\Requests\ProfileRequest;
 
 
@@ -26,15 +27,20 @@ class ProfileController extends Controller
             'trading' => Item::tradingAndAwaitingForUser($user->id)->get(),
             default => collect(),
         };
-        $tradingTransactions = Transaction::activeForUserWithUnreadCount($user->id)->get();
+        $tradingTransactions = Transaction::activeForUserWithUnreadCount($user->id)
+            ->with(['purchase.item'])
+            ->orderByDesc(
+                TransactionMessage::select('created_at')
+                    ->whereColumn('transaction_id', 'transactions.id')
+                    ->whereNull('deleted_at')
+                    ->latest()
+                    ->limit(1)
+            )
+            ->get();
         $tradingUnreadCount = $tradingTransactions->sum('unread_count');
         $itemUnreadCounts = $tradingTransactions
             ->groupBy('purchase.item_id')
             ->map(fn ($txs) => $txs->sum('unread_count'));
-        $tradingTransactions = Transaction::activeForUserWithUnreadCount($user->id)
-            ->with('purchase.item')
-            ->get()
-            ->keyBy(fn ($t) => $t->purchase->item_id);
         return view('mypage.mypage', compact('user', 'profile', 'page', 'items', 'tradingUnreadCount', 'itemUnreadCounts', 'tradingTransactions'));
     }
 

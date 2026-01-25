@@ -93,7 +93,7 @@ class Transaction extends Model
         if (! $this->purchase || ! $this->purchase->item) {
             return null;
         }
-        return $this->purchase->user_id === $user->idate
+        return $this->purchase->user_id === $user->id
             ? $this->purchase->item->user
             : $this->purchase->user;
     }

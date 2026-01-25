@@ -54,36 +54,63 @@
     </a>
 </div>
 <div class="items">
-    @forelse ($items as $item)
-    @if ($item)
-        @php
-        $transaction = $tradingTransactions[$item->id] ?? null;
-        @endphp
-        <a href="{{ $transaction
-            ? route('transactions.show', $transaction)
-            : route('item.show', ['item' => $item->id]) }}" class="items__card-link">
-            <div class="items__card">
-                <div class="items__image-wrapper">
-                    <img src="{{ asset('storage/images/items/' . $item->image_url) }}" alt="商品画像" class="items__image">
-                    @php
-                    $unread = $itemUnreadCounts[$item->id] ?? 0;
-                    @endphp
-                    @if ($unread > 0)
-                    <span class="item__unread-badge">{{ $unread }}</span>
-                    @endif
+    @if ($page === 'trading')
+        @forelse ($tradingTransactions as $transaction)
+            @php
+                $item = $transaction->purchase->item;
+                $unread = $itemUnreadCounts[$item->id] ?? 0;
+            @endphp
+            <a href="{{ route('transactions.show', $transaction) }}" class="items__card-link">
+                <div class="items__card">
+                    <div class="items__image-wrapper">
+                        <img src="{{ asset('storage/images/items/' . $item->image_url) }}"
+                                alt="商品画像"
+                                class="items__image">
+                        @if ($unread > 0)
+                            <span class="item__unread-badge">{{ $unread }}</span>
+                        @endif
+                    </div>
+                    <p class="items__name">
+                        {{ $item->name }}
+                    </p>
                 </div>
-                <p class="items__name">
-                    {{ $item->name }}
-                    @if ($item->is_sold)
-                    <span class="sold__label">Sold</span>
-                    @endif
-                </p>
-            </div>
-        </a>
+            </a>
+        @empty
+            <p class="items__empty">取引中の商品はありません。</p>
+        @endforelse
+@else
+
+        @forelse ($items as $item)
+        @if ($item)
+            @php
+            $transaction = $tradingTransactions[$item->id] ?? null;
+            @endphp
+            <a href="{{ $transaction
+                ? route('transactions.show', $transaction)
+                : route('item.show', ['item' => $item->id]) }}" class="items__card-link">
+                <div class="items__card">
+                    <div class="items__image-wrapper">
+                        <img src="{{ asset('storage/images/items/' . $item->image_url) }}" alt="商品画像" class="items__image">
+                        @php
+                        $unread = $itemUnreadCounts[$item->id] ?? 0;
+                        @endphp
+                        @if ($unread > 0)
+                        <span class="item__unread-badge">{{ $unread }}</span>
+                        @endif
+                    </div>
+                    <p class="items__name">
+                        {{ $item->name }}
+                        @if ($item->is_sold)
+                        <span class="sold__label">Sold</span>
+                        @endif
+                    </p>
+                </div>
+            </a>
+        @endif
+        @empty
+        <p class="items__empty">該当する商品はありません。</p>
+        @endforelse
     @endif
-    @empty
-    <p class="items__empty">該当する商品はありません。</p>
-    @endforelse
 </div>
 
 @endsection
